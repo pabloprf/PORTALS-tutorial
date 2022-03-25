@@ -53,7 +53,7 @@ In `PORTALS/config/`, there is a `config_user_example.json` with specifications 
 Notes on simulation codes
 -------------------------
 
-Note that **PORTALS** does not maintain or develop the simulation codes that are used within it, such as those from `GACODE <http://gafusion.github.io/doc/index.html>`_ or `TRANSP <hhttps://transp.pppl.gov/index.html>`_. It assumes that working versions of those codes exist in the machine configured to run them.
+Note that **PORTALS** does not maintain or develop the simulation codes that are used within it, such as those from `GACODE <http://gafusion.github.io/doc/index.html>`_ or `TRANSP <hhttps://transp.pppl.gov/index.html>`_. It assumes that proper permissions have been obtained and that working versions of those codes exist in the machine configured to run them.
 
 Notes on running **GACODE** in the `ENGAGING <https://www1.psfc.mit.edu/computers/cluster/accessing.html>`_ machine:
 - The user must install the GACODE repo in the user's home directory, by following instructions here: http://gafusion.github.io/doc/download.html.
