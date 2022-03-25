@@ -1,5 +1,11 @@
-Welcome to Lumache's documentation!
-===================================
+PORTALS: a light-weight, object-oriented toolbox for optimization in fusion and plasma physics
+==============================================================================================
+
+**PORTALS** is a Python library for *plasma physics* and *fusion energy* researchers
+that simplifies optimization tasks.
+
+Github repo: https://github.com/pabloprf/PORTALS  
+
 
 **Lumache** (/lu'make/) is a Python library for cooks and food lovers
 that creates recipes mixing random ingredients.
@@ -20,3 +26,4 @@ Contents
 
    usage
    api
+
