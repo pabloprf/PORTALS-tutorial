@@ -16,23 +16,32 @@ Then clone the github repository:
 
 Note that PORTALS requires `python3`. It will not work otherwise.
 The following packages are requied, and can be installed with `pip3`:
+
 .. code-block:: console
+
    pip3 install ipython pyDOE deap seaborn uncertainties h5py netCDF4 fortranformat xarray urllib3 geomdl openpyxl scoop xlsxwriter xlrd statistics statsmodels dill notebook ipywidgets multiprocessing_on_dill torch gpytorch botorch --user
 
 
 The following packages do not affect standard usage but are recommended:
+
 .. code-block:: console
+
    pip3 install PyQt5 torchvision ax-platform gptools --user
 
 
 The following packages do not affect standard usage but are useful to interact with OMFIT (in development, e.g. to read g-files):
+
 .. code-block:: console
+
    pip3 install omfit_classes --user
    pip3 install omas --user
+
 (Note, sometimes `omas` installation may fail because of dependencies. In such case, please do `pip3 install omas --user --no-dependencies`)
 
 Add to .bashrc and source:
+
 .. code-block:: console
+
    export PORTALS_PATH=/path/to/portals/
    source $PORTALS_PATH/config/portals.bashrc
 
@@ -49,20 +58,26 @@ Note that **PORTALS** does not maintain or develop the simulation codes that are
 Notes on running **GACODE** in the `ENGAGING <https://www1.psfc.mit.edu/computers/cluster/accessing.html>`_ machine:
 - The user must install the GACODE repo in the user's home directory, by following instructions here: http://gafusion.github.io/doc/download.html.
 The GACODE platform for ENGAGING is `PSFCLUSTER`. The `.bashrc` file should contain:
+
 .. code-block:: console
+
    export GACODE_PLATFORM=PSFCLUSTER
    export GACODE_ROOT=/path/to/gacode/
    . ${GACODE_ROOT}/shared/bin/gacode_setup
    . ${GACODE_ROOT}/platform/env/env.${GACODE_PLATFORM}
 
 Then, to install:
+
 .. code-block:: console
+
    cd /path/to/gacode/
    make clean
    make
 
 - If calling the GACODE routines fail (e.g. when using `profiles_gen`), then it could be because of python modules not installed. Please do in ENGAGING:
+
 .. code-block:: console
+
    pip3 install numpy matplotlib scipy fortranformat scikit-image --user
 
 
