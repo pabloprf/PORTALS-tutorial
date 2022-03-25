@@ -50,13 +50,14 @@ User configuration
 
 In `PORTALS/config/`, there is a `config_user_example.json` with specifications of where to run certain codes and what is the login requirements. Please create an equivalent file `config_user.json` in the same folder, indicating your specific needs. This file is included in .gitignore, so it will not be pushed to the common repo. If you select to run a code in a given machine, please make sure you have ssh rights to that machine with the login instructions specified.
 
-Code-specific Notes
--------------------
+Notes on simulation codes
+-------------------------
 
 Note that **PORTALS** does not maintain or develop the simulation codes that are used within it, such as those from `GACODE <http://gafusion.github.io/doc/index.html>`_ or `TRANSP <hhttps://transp.pppl.gov/index.html>`_. It assumes that working versions of those codes exist in the machine configured to run them.
 
 Notes on running **GACODE** in the `ENGAGING <https://www1.psfc.mit.edu/computers/cluster/accessing.html>`_ machine:
 - The user must install the GACODE repo in the user's home directory, by following instructions here: http://gafusion.github.io/doc/download.html.
+
 The GACODE platform for ENGAGING is `PSFCLUSTER`. The `.bashrc` file should contain:
 
 .. code-block:: console
