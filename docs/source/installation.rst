@@ -1,19 +1,20 @@
-Usage
-=====
+Getting Started
+===============
 
-.. _installation:
+.. _getting_started:
 
 Installation
 ------------
 
-To use Lumache, first install it using pip:
+To use PORTALS, first request access to Pablo Rodriguez-Fernandez (pablorf@mit.edu), indicating the intended use.
+Then clone the github repository:
 
 .. code-block:: console
 
-   (.venv) $ pip install lumache
+   git clone git@github.com:pabloprf/PORTALS.git
 
-Creating recipes
-----------------
+User configuration
+------------------
 
 To retrieve a list of random ingredients,
 you can use the ``lumache.get_random_ingredients()`` function:
