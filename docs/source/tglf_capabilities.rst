@@ -9,13 +9,10 @@ Before you go through these instructions for specific applications of PORTALS, m
 
 This basic regression test will perform an entire TGLF workflow, from a `.CDF` TRANSP output file to a plot with TGLF outputs. It will eventually plot results in a notebook-like plot with different tabs with information about TGLF outputs and inputs, similar to this:
 
-.. image:: figs/TGLFnotebook.png
-    :alt: A description of this image
-
 .. figure:: figs/TGLFnotebook.png
-    :align: center
-    :alt: TGLF Notebook
-    :figclass: align-center
+	:align: center
+	:alt: TGLF Notebook
+	:figclass: align-center
 
 Run TGLF from TRANSP results
 ----------------------------
@@ -23,45 +20,41 @@ Run TGLF from TRANSP results
 There are a number of routines out there that utilize TRANSP outputs to build input files to other simulation codes. PORTALS can be used to facilitate this process to run codes from the GACODE suite.
 
 First, one should create a TGLF class that contains information for the extraction of TRANSP data. The `.CDF` file is needed at this step. It is recommended that a namelist file `TR.DAT` file exists in the same folder, to grab direction of currents and fields. If no namelist is found in the same folder, default signs will be used.
-```
-from portals.gacode_tools import TGLFmodule
 
-LocationCDF = '/path/to/file.CDF' # Absolute path of the CDF file
-timeRun     = 2.0                 # Time of of interest in seconds
-avTime      = 0.02                # Averaging window around timeRun (+-avTime)
-rho         = 0.9                 # rho location (norm. sqrt. tor. flux) to run TGLF
+	from portals.gacode_tools import TGLFmodule
 
-tglf = TGLFmodule.TGLF( cdf = LocationCDF, time = timeRun, avTime = avTime, rhos = [rho] )
-```
+	LocationCDF = '/path/to/file.CDF' # Absolute path of the CDF file
+	timeRun     = 2.0                 # Time of of interest in seconds
+	avTime      = 0.02                # Averaging window around timeRun (+-avTime)
+	rho         = 0.9                 # rho location (norm. sqrt. tor. flux) to run TGLF
+
+	tglf = TGLFmodule.TGLF( cdf = LocationCDF, time = timeRun, avTime = avTime, rhos = [rho] )
+
 
 Next one needs to indicate the folder in which to perform all operations required to generate the input files to TGLF.
-```
-folderWork = '/path/to/final/folder' # Folder for operations and storage
-cdf = tglf.prep( folderWork )
-```
+
+	folderWork = '/path/to/final/folder' # Folder for operations and storage
+	cdf = tglf.prep( folderWork )
 
 This routine will generate in `folderWork` all the final (`input.tglf`) and intermediate (`input.gacode`, `plasmastate.cdf`, `.geq`) files.
 
 One can stop here and run TGLF externally as one wishes, independent from PORTALS. But you can also run TGLF through PORTALS if the SSH connections to ENGAGING are set properly:
-```
-tglf.run( subFolderTGLF = 'run1/' )
-```
+
+	tglf.run( subFolderTGLF = 'run1/' )
+
 
 This workflow will generate all TGLF outputs in the folder `/path/to/final/folder/run1/`. Now one can read the results generated and store them in the `tglf.results` dictionary with a self-descriptive short label:
-```
-tglf.read( label = 'base_case' )
-```
+
+	tglf.read( label = 'base_case' )
 
 One can also run a new TGLF simulation with different settings (e.g. with perpendicular magnetic fluctuations) and store the results with a different label:
-```
-tglf.run( subFolderTGLF = 'run2/', extraOptions = {'USER_BPER':True} )
-tglf.read( label = 'electromagnetic' )
-```
+	
+	tglf.run( subFolderTGLF = 'run2/', extraOptions = {'USER_BPER':True} )
+	tglf.read( label = 'electromagnetic' )
 
 Now one can plot all TGLF results together with:
-```
-tglf.plotRun( labels = [ 'base_case', 'electromagnetic' ] )
-```
+
+	tglf.plotRun( labels = [ 'base_case', 'electromagnetic' ] )
 
 Run TGLF scans from TRANSP results
 ----------------------------------
@@ -93,20 +86,19 @@ The user is not limited to use those combinations. One can start with a given `T
 ## Interpreting external TGLF results
 
 When TGLF has been run in a folder `tglf/` outside of the PORTALS framework, one can also use PORTALS to look at the ouput results as follows:
-```
-from portals.gacode_tools.TGLFmodule import TGLF
 
-tglf_results = TGLF()
+	from portals.gacode_tools.TGLFmodule import TGLF
 
-folderTGLFresults = 'tglf/'
-input_gacodeLoc   = '/path/to/file.gacode'
-rho_of_interest   = 0.65
+	tglf_results = TGLF()
 
-tglf_results.read( folder = folderTGLFresults, input_profilesLoc = input_gacodeLoc, NoSuffixesRho = rho_of_interest )
-```
+	folderTGLFresults = 'tglf/'
+	input_gacodeLoc   = '/path/to/file.gacode'
+	rho_of_interest   = 0.65
+
+	tglf_results.read( folder = folderTGLFresults, input_profilesLoc = input_gacodeLoc, NoSuffixesRho = rho_of_interest )
+
 Note that one needs to provide the `input.gacode` file that was used to generate the TGLF input file, as well as the `rho` location. This is because the TGLF files by themselves do not contain information about the normalization, thus one needs more information to build useful output quantities like heat fluxes in real units.
 
 Now, one can plot all TGLF results:
-```
-tglf_results.plotRun()
-```
+
+	tglf_results.plotRun()
