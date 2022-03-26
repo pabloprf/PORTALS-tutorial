@@ -1,12 +1,7 @@
-Standalone Utilities
-====================
-
--
+Standalone Capabilities
+=======================
 
 
-
-Current fusion applications
----------------------------
 
 .. toctree::
 
