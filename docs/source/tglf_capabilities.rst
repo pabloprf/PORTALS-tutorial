@@ -1,7 +1,10 @@
 TGLF Capabilities
 =================
 
-Regression test:
+**PORTALS** can be used to run the TGLF model, interpret results, plot revelant quantities and perform scans and transport analyses.
+**PORTALS** does not provide linceses or support to run TGLF, therefore, please see :ref:`Installation` for information on how to get TGLF working and how to configure your setup.
+
+Once setup has been successful, the following regression test should run smoothly:
 
 .. code-block:: console
 
