@@ -2,13 +2,15 @@ TGLF Capabilities
 =================
 
 Before you go through these instructions for specific applications of PORTALS, make sure you have followed the instructions in [README](./README.md). You can run a regression test:
-```
-python3 $PORTALS_PATH/regressions/TGLF_workflow.py
-```
+
+.. code-block:: console
+	python3 $PORTALS_PATH/regressions/TGLF_workflow.py
+
 This basic regression test will perform an entire TGLF workflow, from a `.CDF` TRANSP output file to a plot with TGLF outputs. It will eventually plot results in a notebook-like plot with different tabs with information about TGLF outputs and inputs, similar to this:
 
 .. figure:: figs/TGLFnotebook.png
     :align: center
+    :alt: TGLF Notebook
     :figclass: align-center
 
 Run TGLF from TRANSP results
