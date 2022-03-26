@@ -35,6 +35,8 @@ First, one should create a TGLF class that contains information for the extracti
 
 Next one needs to indicate the folder in which to perform all operations required to generate the input files to TGLF.
 
+.. code-block:: python
+
 	folderWork = '/path/to/final/folder' # Folder for operations and storage
 	cdf = tglf.prep( folderWork )
 
@@ -42,19 +44,27 @@ This routine will generate in `folderWork` all the final (`input.tglf`) and inte
 
 One can stop here and run TGLF externally as one wishes, independent from PORTALS. But you can also run TGLF through PORTALS if the SSH connections to ENGAGING are set properly:
 
+.. code-block:: python
+
 	tglf.run( subFolderTGLF = 'run1/' )
 
 
 This workflow will generate all TGLF outputs in the folder `/path/to/final/folder/run1/`. Now one can read the results generated and store them in the `tglf.results` dictionary with a self-descriptive short label:
 
+.. code-block:: python
+
 	tglf.read( label = 'base_case' )
 
 One can also run a new TGLF simulation with different settings (e.g. with perpendicular magnetic fluctuations) and store the results with a different label:
 	
+.. code-block:: python
+
 	tglf.run( subFolderTGLF = 'run2/', extraOptions = {'USER_BPER':True} )
 	tglf.read( label = 'electromagnetic' )
 
 Now one can plot all TGLF results together with:
+
+.. code-block:: python
 
 	tglf.plotRun( labels = [ 'base_case', 'electromagnetic' ] )
 
@@ -89,6 +99,8 @@ The user is not limited to use those combinations. One can start with a given `T
 
 When TGLF has been run in a folder `tglf/` outside of the PORTALS framework, one can also use PORTALS to look at the ouput results as follows:
 
+.. code-block:: python
+
 	from portals.gacode_tools.TGLFmodule import TGLF
 
 	tglf_results = TGLF()
@@ -102,5 +114,7 @@ When TGLF has been run in a folder `tglf/` outside of the PORTALS framework, one
 Note that one needs to provide the `input.gacode` file that was used to generate the TGLF input file, as well as the `rho` location. This is because the TGLF files by themselves do not contain information about the normalization, thus one needs more information to build useful output quantities like heat fluxes in real units.
 
 Now, one can plot all TGLF results:
+
+.. code-block:: python
 
 	tglf_results.plotRun()
