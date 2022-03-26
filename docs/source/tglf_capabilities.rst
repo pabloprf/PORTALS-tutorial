@@ -11,7 +11,7 @@ This basic regression test will perform an entire TGLF workflow, from a `.CDF` T
 
 .. figure:: figs/TGLFnotebook.png
 	:align: center
-	:alt: TGLF Notebook
+	:alt: TGLF_Notebook
 	:figclass: align-center
 
 Run TGLF from TRANSP results
@@ -21,7 +21,7 @@ There are a number of routines out there that utilize TRANSP outputs to build in
 
 First, one should create a TGLF class that contains information for the extraction of TRANSP data. The `.CDF` file is needed at this step. It is recommended that a namelist file `TR.DAT` file exists in the same folder, to grab direction of currents and fields. If no namelist is found in the same folder, default signs will be used.
 
-.. sourcecode:: python
+.. code-block:: python
 
 	from portals.gacode_tools import TGLFmodule
 
