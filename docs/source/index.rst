@@ -22,5 +22,6 @@ Contents
    tgyro_capabilities
    transp_capabilities
    eq_capabilities
+   opt_capabilities
    api
 

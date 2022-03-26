@@ -1,7 +1,7 @@
 TGLF Capabilities
 =================
 
-Before you go through these instructions for specific applications of PORTALS, make sure you have followed the instructions in [README](./README.md). You can run a regression test:
+Regression test:
 
 .. code-block:: console
 
@@ -13,6 +13,8 @@ This basic regression test will perform an entire TGLF workflow, from a `.CDF` T
 	:align: center
 	:alt: TGLF_Notebook
 	:figclass: align-center
+
+
 
 Run TGLF from TRANSP results
 ----------------------------
