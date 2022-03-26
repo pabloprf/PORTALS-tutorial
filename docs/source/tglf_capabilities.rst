@@ -118,3 +118,8 @@ Now, one can plot all TGLF results:
 .. code-block:: python
 
 	tglf_results.plotRun()
+
+Detailed information
+--------------------
+
+- The contents of the TGLF class `TGLF` can be found in `gacode_tools.TGLFmodule.py` if one wants to understand how the input files are handled. TGLF outputs are stored in the dictionary `tglf.results` after peforming the `.read()` method.
