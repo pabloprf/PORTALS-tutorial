@@ -1,10 +1,5 @@
-Getting Started
-===============
-
-.. _getting_started:
-
 Installation
-------------
+============
 
 To use PORTALS, first request access to Pablo Rodriguez-Fernandez (pablorf@mit.edu), indicating the intended use.
 Then clone the github repository:
