@@ -21,7 +21,7 @@ There are a number of routines out there that utilize TRANSP outputs to build in
 
 First, one should create a TGLF class that contains information for the extraction of TRANSP data. The `.CDF` file is needed at this step. It is recommended that a namelist file `TR.DAT` file exists in the same folder, to grab direction of currents and fields. If no namelist is found in the same folder, default signs will be used.
 
-.. code-block:: python
+.. sourcecode:: python
 
 	from portals.gacode_tools import TGLFmodule
 
