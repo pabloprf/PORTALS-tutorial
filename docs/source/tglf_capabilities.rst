@@ -9,7 +9,7 @@ Before you go through these instructions for specific applications of PORTALS, m
 
 This basic regression test will perform an entire TGLF workflow, from a `.CDF` TRANSP output file to a plot with TGLF outputs. It will eventually plot results in a notebook-like plot with different tabs with information about TGLF outputs and inputs, similar to this:
 
-.. figure:: docs/figs/TGLFnotebook.png
+.. figure:: figs/TGLFnotebook.png
 	:align: center
 	:alt: TGLF_Notebook
 	:figclass: align-center
