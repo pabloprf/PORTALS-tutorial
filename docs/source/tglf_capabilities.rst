@@ -2,13 +2,74 @@ TGLF Capabilities
 =================
 
 **PORTALS** can be used to run the TGLF model, interpret results, plot revelant quantities and perform scans and transport analyses.
-**PORTALS** does not provide linceses or support to run TGLF, therefore, please see :ref:`Installation` for information on how to get TGLF working and how to configure your setup.
+This framework does not provide linceses or support to run TGLF, therefore, please see :ref:`Installation` for information on how to get TGLF working and how to configure your setup.
 
 Once setup has been successful, the following regression test should run smoothly:
 
 .. code-block:: console
 
 	python3 $PORTALS_PATH/regressions/TGLF_workflow.py
+
+
+Run TGLF from input.gacode
+--------------------------
+
+For this tutorial we will need the following modules:
+
+.. code-block:: python
+
+	from portals.gacode_tools 	import TGLFmodule
+	from portals.misc_tools 	import IOtools
+
+Select the location of the input.gacode file to start the simulation from. Note that you can use the `IOtools.expandPath()` method to work with relative paths. You should also select the folder where the simulation will be run:
+
+.. code-block:: python
+
+	inputgacode_file 	= IOtools.expandPath('$PORTALS_PATH/regressions/data/input.gacode')
+	folder 				= IOtools.expandPath('$PORTALS_PATH/regressions/scratch/tglf_tut/')
+
+TGLF is a local transport model, and therefore one must specify the radial location (in square root of normalized toroidal flux, `rho`) to run TGLF at. Note that the values are given as a list, and several radial locations can be run at once:
+
+.. code-block:: python
+
+	rhos = [0.5]
+
+The TGLF class can be initialized:
+
+.. code-block:: python
+
+	tglf = TGLFmodule.TGLF(rhos=rhos)
+
+To generate the input files (input.tglf) to TGLF at each radial location, **PORTALS** needs to run a few commands (*profiles_gen* and a zeroth-iteration of *tgyro*) to correctly map the quantities in the input.gacode file to the ones required by TGLF. This is done automatically with the `prep()` command. Note that **PORTALS** has a *only-run-if-needed* philosophy and it it finds that the input files to TGLF already exist in the working folder, the preparation method will not run any command, unless a `restart=True` argument is provided.
+
+.. code-block:: python
+
+	cdf = tglf.prep(folder,inputgacode=inputgacode_file,restart=False)
+
+Now, we are ready to run TGLF. Once the `prep()` command has finished its thing, one can run TGLF with different settings, assumptions, etc. That is why, at this point, a sub-folder name for this specific run can be provided. Similarly to the `prep()` command, a `restart` flag can be provided.
+The set of control inputs to TGLF (like saturation rule, electromagnetic effects, etc.) are provided in two ways.
+First, the argument `TGLFsettings` (which goes from `1` to `5` as of now) indicates the base case to start with. The user is referred to `GACODEdefaults.py` to understand the meaning of each setting.
+Second, the argument `extraOptions` can be passed as a dictionary of variables to change.
+For example, the following two commands will run TGLF with saturation rule number 2 with and without electromagnetic effets:
+
+.. code-block:: python
+
+	tglf.run(subFolderTGLF='yes_em_folder/',TGLFsettings=5,extraOptions={},restart=False)
+	tglf.read(label='yes_em') # Read TGLF results from previous folder and assign them the key name
+
+	tglf.run(subFolderTGLF='no_em_folder/',TGLFsettings=5,extraOptions={'USE_BPER':False},restart=False)
+	tglf.read(label='no_em')
+
+Once the `.read()` method has been used after each individual run, the dictionary `tglf.results` is populated with the specified key that we gave as a label (e.g. `tglf.results['yes_em']`) and it contains all TGLF results parsed and interpreted.
+In this example, `tglf.results['yes_em']` and `tglf.results['no_em']` are themselves dictionaries, so please do `.keys()` to get all the possible results that have been obtained.
+
+TGLF results can be plotted together by indicating what labels to plot:
+	
+.. code-block:: python
+
+	tglf.plotRun(labels=['yes_em','no_em'])
+
+
 
 This basic regression test will perform an entire TGLF workflow, from a `.CDF` TRANSP output file to a plot with TGLF outputs. It will eventually plot results in a notebook-like plot with different tabs with information about TGLF outputs and inputs, similar to this:
 

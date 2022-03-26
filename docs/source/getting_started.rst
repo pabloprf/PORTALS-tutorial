@@ -45,6 +45,9 @@ User configuration
 
 In `PORTALS/config/`, there is a `config_user_example.json` with specifications of where to run certain codes and what is the login requirements. Please create an equivalent file `config_user.json` in the same folder, indicating your specific needs. This file is included in .gitignore, so it will not be pushed to the common repo. If you select to run a code in a given machine, please make sure you have ssh rights to that machine with the login instructions specified.
 
+verbose level
+
+
 Notes on simulation codes
 -------------------------
 
