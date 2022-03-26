@@ -17,12 +17,10 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.autosummary',
               'sphinx.ext.autosectionlabel',
               'sphinx.ext.todo',
-              'sphinx.ext.mathjax',  #
-              #'sphinx.ext.imgmath',
+              'sphinx.ext.mathjax',
               'sphinx.ext.viewcode',
               'sphinx.ext.napoleon',
 ]
-
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
@@ -55,8 +53,6 @@ epub_show_urls = 'footnote'
 # -- Options for LaTeX output --------------------------------------------------
 
 latex_elements = {
-# The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
 
 # avoid empty pages:
 'extraclassoptions': 'openany,oneside',
@@ -68,11 +64,9 @@ latex_elements = {
 'preamble': r'\hypersetup{bookmarksdepth=3}',
 }
 
-
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'aurora.tex', u'Aurora Documentation',
    u'Francesco Sciortino', 'manual'),
 ]
-
