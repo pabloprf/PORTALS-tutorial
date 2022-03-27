@@ -78,13 +78,13 @@ Note that PORTALS does not maintain or develop the simulation codes that are use
 
 * Use of codes at MIT (mfews and `ENGAGING <https://www1.psfc.mit.edu/computers/cluster/accessing.html>`_ )
 
-- The user must install the GACODE repo in the user's home directory, by following instructions here: http://gafusion.github.io/doc/download.html. The platform for ENGAGING is `PSFCLUSTER`.
+   - The user must install the GACODE repo in the user's home directory, by following instructions here: http://gafusion.github.io/doc/download.html. The platform for ENGAGING is `PSFCLUSTER`.
 
-- To run the NTCC and TRANSP toolsets in the MFEWS computers, make sure you have in the .bashrc file:
+   - To run the NTCC and TRANSP toolsets in the MFEWS computers, make sure you have in the .bashrc file:
 
-.. code-block:: console
+   .. code-block:: console
 
-   export PORTALS_PATH=/home/pablorf/PORTALS
-   source $PORTALS_PATH/config/portals.bashrc
+      export PORTALS_PATH=/home/pablorf/PORTALS
+      source $PORTALS_PATH/config/portals.bashrc
 
 
