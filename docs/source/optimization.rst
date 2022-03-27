@@ -1,7 +1,8 @@
 Optimization
 ============
 
-*Nothing here yet*
+**PORTALS** can be used to optimize any custom function (:ref:`Optimize a custom function`) or simulations that have already been developed in the code (:ref:`Current fusion applications`).
+Make sure you follow the :ref:`Installation` tutorial for information on how to get PORTALS working and how to configure your setup.
 
 Once setup has been successful, the following regression test should run smoothly:
 
@@ -21,7 +22,6 @@ For this tutorial we will need the following modules:
    from portals.misc_tools                import IOtools
    from portals_opt.opt_tools             import STRATEGYtools
    from portals_opt.opt_tools.decoration  import BOgraphics
-
 
 Select the location of the PORTALS namelist (see :ref:`Understanding the PORTALS namelist` to understand how to construct the namelist file) and the folder to work on:
 
@@ -48,8 +48,13 @@ Then create your custom optimization object as a child of the parent `STRATEGYto
          FolderEvaluation,numEval,dictDVs,dictOFs,dictCVs = self.read(paramsfile,resultsfile)
 
          # Operations -------------------------------------------------
-         dictOFs['z']['value'] = dictDVs['x']['value']**2
-         dictOFs['z']['error'] = dictOFs['z']['value']*5E-2
+         
+         x = dictDVs['x']['value']
+         
+         z = x**2
+
+         dictOFs['z']['value'] = z
+         dictOFs['z']['error'] = z * 5E-2
          # -------------------------------------------------------------
 
          # Write stuff
@@ -59,7 +64,7 @@ Then, create an object from the previously defined class:
 
 .. code-block:: python
 
-   opt_fun1D  = opt_class(folderWork,namelist=namelist)
+   opt_fun1D  = opt_class( folderWork, namelist = namelist )
 
 .. note::
 
@@ -94,4 +99,3 @@ Current fusion applications
 
 
 
-   
