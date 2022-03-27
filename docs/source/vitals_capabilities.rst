@@ -1,7 +1,10 @@
 VITALS
 ======
 
-The VITALS (Validation via Iterative Training of Active Learning Surrogates) method, described in `P. Rodriguez-Fernandez et al., Fusion Technol. 74:1-2, 65-76 (2018) <https://www.tandfonline.com/doi/full/10.1080/15361055.2017.1396166>`_ consists of
+The VITALS (Validation via Iterative Training of Active Learning Surrogates) method, described in `P. Rodriguez-Fernandez et al., Fusion Technol. 74:1-2, 65-76 (2018) <https://www.tandfonline.com/doi/full/10.1080/15361055.2017.1396166>`_ consists of using Bayesian Optimization techniques to help in the multi-channel validation of transport models.
+
+VITALS has been implemented to work with the TGLF model, and can be run using the PORTALS repo, following a few steps described below.
+
 
 1. Preparation of TGLF class
 ----------------------------
@@ -81,13 +84,14 @@ Then, as it the case for all optimization problems in PORTALS, you must create a
 
 .. code-block:: python
 
+	namelist   = IOtools.expandPath( '$PORTALS_PATH/regressions/data/namelist_examples/vitals_example.namelist' )
 	vitals_fun = VITALSmain.evaluateVITALS( folder, namelist = namelist )
 
 Once the VITALS object has been created, parameters such as the TGLF control inputs can be chosen:
 
 .. code-block:: python
 
-	vitals_fun.TGLFparameters['TGLFsettings']  = TGLFsettings
+	vitals_fun.TGLFparameters['TGLFsettings']  = 5
 
 We are now ready to prepare the VITALS class. Here we have two options:
 
@@ -105,7 +109,6 @@ Now we can create and launch the PORTALS optimization process:
 
 	portals_bo = STRATEGYtools.PRF_BO(vitals_fun)
 	portals_bo.run()
-
 
 3. VITALS Interpretation 
 ------------------------
