@@ -2,7 +2,7 @@ TRANSP
 ===================
 
 **PORTALS** can be used to run TRANSP, interpret results and plot revelant quantities.
-This framework does not provide linceses or support to run TRANSP, therefore, please see :ref:`Installation` for information on how to get TGLF working and how to configure your setup.
+This framework does not provide linceses or support to run TRANSP, therefore, please see :ref:`Installation` for information on how to get TRANSP working and how to configure your setup.
 
 Once setup has been successful, the following regression test should run smoothly:
 
@@ -33,14 +33,14 @@ First, one would initialize the TRANSP class with the given folder and the tokam
 .. code-block:: python
 
 	tokamak = 'CMOD'
-	transp  = TRANSP(folder,tokamak)
+	transp  = TRANSPtools.TRANSP( folder, tokamak )
 
 Then, select a shotnumber and run name, such that the TRANSP simulation will have the complete name `shotnumber+runname`, and the MPI settings for the TRANSP run:
 
 .. code-block:: python
 
 	shotnumber  = '88664'
-	runname     = 'A12'
+	runname     = 'S01'
 	mpisettings = { 'trmpi': 1, 'toricmpi': 64, 'ptrmpi': 1 }
 
 	transp.defineRunParameters( shotnumber+runname, shotnumber, mpisettings = mpisettings )
@@ -51,17 +51,17 @@ Submit the TRANSP run:
 
 	transp.run()
 
-Check every 10min if the run has finished, and grab final results when they are ready:
+Check every 5min if the run has finished, and grab final results when they are ready:
 
 .. code-block:: python
 
-	transp.checkUntilFinished( label = runname, checkMin = 10 )
+	transp.checkUntilFinished( label = runname, checkMin = 5 )
 
 Once the run has finished, results can be plotted:
 
 .. code-block:: python
 
-	t.plot( label = runname ) 
+	transp.plot( label = runname ) 
 
 As a result, a TRANSP notebook with different tabs will be opened with all relevant output quantities:
 
@@ -70,8 +70,8 @@ As a result, a TRANSP notebook with different tabs will be opened with all relev
 	:alt: TRANSP_Notebook
 	:figclass: align-center
 
-Read results that already exist
--------------------------------
+Read results from external TRANSP run¶
+--------------------------------------
 
 If TRANSP has already been run and the .CDF results file already exists (cdf_file), the workflow in the previous section is not needed and one can simply read and plot the results:
 

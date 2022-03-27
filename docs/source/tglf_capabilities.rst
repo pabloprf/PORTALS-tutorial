@@ -41,11 +41,7 @@ To generate the input files (input.tglf) to TGLF at each radial location, **PORT
 
 .. note::
 
-	The `.prep()` method performs the following operations:
-
-	- `PROFILES_GEN` to generate an `input.gacode` file from the `plasmastate.cdf` and `.geq` files. This file is standard within the GACODE suite and contains all plasma information that is required to run core transport codes.
-
-	- `TGYRO` for a "zero" iteration to generate `input.tglf` at specific `rho` locations from the `input.gacode`. This method to generate input files is inspired by how the OMFIT framework works (https://gafusion.github.io/OMFIT-source/index.html).
+	The `.prep()` method, when applied to a case that starts with an input.gacode file, launches a `TGYRO` run for a "zero" iteration to generate `input.tglf` at specific `rho` locations from the `input.gacode`. This method to generate input files is inspired by how the `OMFIT framework <https://gafusion.github.io/OMFIT-source/index.html>`_ works.
 
 Now, we are ready to run TGLF. Once the `prep()` command has finished, one can run TGLF with different settings, assumptions, etc. That is why, at this point, a sub-folder name for this specific run can be provided. Similarly to the `prep()` command, a `restart` flag can be provided.
 The set of control inputs to TGLF (like saturation rule, electromagnetic effects, etc.) are provided in two ways.
@@ -118,10 +114,13 @@ The rest of the workflow is identical.
 
 .. note::
 
-	The `.prep()` method now performs an extra operation before `PROFILES_GEN`:
+	The `.prep()` method, when applied to a case that starts from a TRANSP .CDF file, now performs two extra operations:
 
 	- `TRXPL` (https://w3.pppl.gov/~hammett/work/GS2/docs/trxpl.txt) to generate `plasmastate.cdf` and `.geq` files for a specific time-slice from the TRANSP outputs.
 
+	- `PROFILES_GEN` to generate an `input.gacode` file from the `plasmastate.cdf` and `.geq` files. This file is standard within the GACODE suite and contains all plasma information that is required to run core transport codes.
+
+	
 Run TGLF from input.tglf file
 -----------------------------
 
