@@ -1,6 +1,8 @@
 VITALS
 ======
 
+The VITALS (Validation via Iterative Training of Active Learning Surrogates) method, described in `P. Rodriguez-Fernandez et al., Fusion Technol. 74:1-2, 65-76 (2018) <https://www.tandfonline.com/doi/full/10.1080/15361055.2017.1396166>`_ consists of
+
 1. Preparation of TGLF class
 ----------------------------
 
@@ -65,17 +67,17 @@ First you must select the objective functions you want VITALS to match:
 
 .. code-block:: python
 
-	ofs 		= ['Qe','Qi','TeFluct','neTe']
+	ofs = ['Qe','Qi','TeFluct','neTe']
 
 Then, the free parameters that VITALS can vary, along with their minimum and maximum variation relative to the base case:
 
 .. code-block:: python
 
-	dvs 		= ['RLTS_1', 'RLTS_2', 'RLNS_1', 'ZEFF']
-	dvs_min 	= [     0.7,      0.7,      0.7,    0.7]
-	dvs_max		= [     1.3,      1.3,      1.3,    1.3]
+	dvs     = ['RLTS_1', 'RLTS_2', 'RLNS_1', 'ZEFF']
+	dvs_min = [     0.7,      0.7,      0.7,    0.7]
+	dvs_max	= [     1.3,      1.3,      1.3,    1.3]
 
-Then, as it the case for all optimization problems in VITALS, you must create a function class by selecting the PORTALS namelist parameters:
+Then, as it the case for all optimization problems in PORTALS, you must create a function class by selecting the namelist file to use:
 
 .. code-block:: python
 
@@ -92,16 +94,16 @@ We are now ready to prepare the VITALS class. Here we have two options:
 .. code-block:: python
 
 	# Option 1. Pass the tglf object directly
-	vitals_fun.prepare( tglf,      0.5, ofs, dvs, dvs_min, dvs_max, classLoaded = True  )
+	vitals_fun.prepare( tglf,      classLoaded = True,  0.5, ofs, dvs, dvs_min, dvs_max  )
 
 	# Option 2. Pass the tglf pickled file
-	vitals_fun.prepare( tglf_file, 0.5, ofs, dvs, dvs_min, dvs_max, classLoaded = False )
+	vitals_fun.prepare( tglf_file, classLoaded = False, 0.5, ofs, dvs, dvs_min, dvs_max )
 
 Now we can create and launch the PORTALS optimization process:
 
 .. code-block:: python
 
-	portals_bo = STRATEGYtools.PRF_BO(vitals_fun,restartYN=False)
+	portals_bo = STRATEGYtools.PRF_BO(vitals_fun)
 	portals_bo.run()
 
 

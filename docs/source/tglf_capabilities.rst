@@ -41,7 +41,7 @@ To generate the input files (input.tglf) to TGLF at each radial location, **PORT
 
 .. note::
 
-	The `.prep()` method, when applied to a case that starts with an input.gacode file, launches a `TGYRO` run for a "zero" iteration to generate `input.tglf` at specific `rho` locations from the `input.gacode`. This method to generate input files is inspired by how the `OMFIT framework <https://gafusion.github.io/OMFIT-source/index.html>`_ works.
+	The `.prep()` method, when applied to a case that starts with an input.gacode file, launches a `TGYRO` run for a "zero" iteration to generate `input.tglf` at specific `rho` locations from the `input.gacode`. This method to generate input files is inspired by how the `OMFIT framework <https://omfit.io/index.html>`_ works.
 
 Now, we are ready to run TGLF. Once the `prep()` command has finished, one can run TGLF with different settings, assumptions, etc. That is why, at this point, a sub-folder name for this specific run can be provided. Similarly to the `prep()` command, a `restart` flag can be provided.
 The set of control inputs to TGLF (like saturation rule, electromagnetic effects, etc.) are provided in two ways.
@@ -63,7 +63,7 @@ For example, the following two commands will run TGLF with saturation rule numbe
                extraOptions  = {'USE_BPER':False},
                restart       = False )
 
-	tglf.read( label = 'no_em' )
+    tglf.read( label = 'no_em' )
 
 .. note::
 
