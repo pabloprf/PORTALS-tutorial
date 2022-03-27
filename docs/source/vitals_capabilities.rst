@@ -1,7 +1,7 @@
 VITALS
 ======
 
-The VITALS (Validation via Iterative Training of Active Learning Surrogates) method, described in `P. Rodriguez-Fernandez et al., Fusion Technol. 74:1-2, 65-76 (2018) <https://www.tandfonline.com/doi/full/10.1080/15361055.2017.1396166>`_ consists of using Bayesian Optimization techniques to help in the multi-channel validation of transport models.
+The VITALS (**V**alidation via **I**terative **T**raining of **A**ctive **L**earning **S**urrogates) method, described in `P. Rodriguez-Fernandez et al., Fusion Technol. 74:1-2, 65-76 (2018) <https://www.tandfonline.com/doi/full/10.1080/15361055.2017.1396166>`_ consists of using Bayesian Optimization techniques to help in the multi-channel validation of transport models.
 
 VITALS has been implemented to work with the TGLF model, and can be run using the PORTALS repo, following a few steps described below.
 
