@@ -43,9 +43,27 @@ Add to .bashrc and source:
 User configuration
 ------------------
 
-In `PORTALS/config/`, there is a `config_user_example.json` with specifications of where to run certain codes and what is the login requirements. Please create an equivalent file `config_user.json` in the same folder, indicating your specific needs. This file is included in .gitignore, so it will not be pushed to the common repo. If you select to run a code in a given machine, please make sure you have ssh rights to that machine with the login instructions specified.
+In `PORTALS/config/`, there is a `config_user_example.json` with specifications of where to run certain codes and what is the login requirements. Please create an equivalent file `config_user.json` in the same folder, indicating your specific needs.
 
-verbose level
+.. note::
+   The file `config_user.json` is included in .gitignore, so it will not be pushed to the common repo.
+
+For example, if `"tglf":"engaging"` in `preferences`, this means that, every time in the PORTALS workflow when TGLF needs to run, it will access the engaging machine to do so, and therefore you must specify how to access the engaging machine:
+
+.. code-block:: console
+
+    "engaging": {
+        "machine":          "eofe7.mit.edu", 
+        "username":         "pablorf",
+        "partition":        "sched_mit_psfc",
+        "identity":         "~/.ssh/id_rsa",
+        "scratch":          "/nobackup1/pablorf/scratch/"
+        }
+
+.. warning::
+   If you select to run a code in a given machine, please make sure you have ssh rights to that machine with the login instructions specified.
+
+`preferences` in `config_user.json` also includes a `"verbose_level"`, which indicates how many messages are printed in the terminal when running PORTALS. For debugging purposes, it is recommended a maximum verbose level of `5`. For production runs, a minimum verbose level of `1` is recommended so that you only get important messages.
 
 
 Notes on simulation codes

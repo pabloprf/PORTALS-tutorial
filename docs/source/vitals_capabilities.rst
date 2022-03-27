@@ -13,9 +13,12 @@ For this tutorial we will need the following modules and the folder to run VITAL
 
 .. code-block:: python
 
+	import numpy as np
+
 	from portals.gacode_tools     import TGLFmodule
 	from portals.misc_tools       import IOtools
 	from portals_opt.vitals_tools import VITALSmain
+	from portals_opt.opt_tools 	  import STRATEGYtools
 
 	folder = IOtools.expandPath( '$PORTALS_PATH/regressions/scratch/vitals_tut/' )
 
@@ -66,13 +69,13 @@ At this point, the TGLF class is ready to go into VITALS. One can give the `tglf
 2. VITALS Run 
 -------------
 
-First you must select the objective functions you want VITALS to match:
+First you must select the objective functions (ofs) you want VITALS to match:
 
 .. code-block:: python
 
 	ofs = ['Qe','Qi','TeFluct','neTe']
 
-Then, the free parameters that VITALS can vary, along with their minimum and maximum variation relative to the base case:
+Then, the free parameters (design variables, dvs) that VITALS can vary, along with their minimum and maximum variation relative to the base case:
 
 .. code-block:: python
 
@@ -80,7 +83,7 @@ Then, the free parameters that VITALS can vary, along with their minimum and max
 	dvs_min = [     0.7,      0.7,      0.7,    0.7]
 	dvs_max	= [     1.3,      1.3,      1.3,    1.3]
 
-Then, as it the case for all optimization problems in PORTALS, you must create a function class by selecting the namelist file to use:
+Then, as it the case for all optimization problems in PORTALS, you must create a function class by selecting the namelist file to use (see :ref:`Understanding the PORTALS namelist` to understand how to construct the namelist file):
 
 .. code-block:: python
 
@@ -98,16 +101,16 @@ We are now ready to prepare the VITALS class. Here we have two options:
 .. code-block:: python
 
 	# Option 1. Pass the tglf object directly
-	vitals_fun.prepare( tglf,      classLoaded = True,  0.5, ofs, dvs, dvs_min, dvs_max  )
+	vitals_fun.prepare( tglf,      0.5, ofs, dvs, dvs_min, dvs_max, classLoaded = True  )
 
 	# Option 2. Pass the tglf pickled file
-	vitals_fun.prepare( tglf_file, classLoaded = False, 0.5, ofs, dvs, dvs_min, dvs_max )
+	vitals_fun.prepare( tglf_file, 0.5, ofs, dvs, dvs_min, dvs_max, classLoaded = False )
 
-Now we can create and launch the PORTALS optimization process:
+Now we can create and launch the PORTALS optimization process from the beginning (i.e. `restart = True`):
 
 .. code-block:: python
 
-	portals_bo = STRATEGYtools.PRF_BO(vitals_fun)
+	portals_bo = STRATEGYtools.PRF_BO(vitals_fun, restart = True )
 	portals_bo.run()
 
 3. VITALS Interpretation 
