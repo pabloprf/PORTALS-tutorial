@@ -6,7 +6,7 @@ Developed and maintained by Pablo Rodriguez-Fernandez, MIT Plasma Science and Fu
 
 Github repo: https://github.com/pabloprf/PORTALS  
 
-License: :ref:`License and Contributions`
+Users Agreement: :ref:`License and Contributions`
 
 .. note::
 

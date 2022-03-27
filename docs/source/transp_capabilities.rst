@@ -1,87 +1,100 @@
 TRANSP
 ===================
 
-Before you go through these instructions for specific applications of PORTALS, make sure you have followed the instructions in [README](./README.md). You can run a regression test:
+**PORTALS** can be used to run TRANSP, interpret results and plot revelant quantities.
+This framework does not provide linceses or support to run TRANSP, therefore, please see :ref:`Installation` for information on how to get TGLF working and how to configure your setup.
+
+Once setup has been successful, the following regression test should run smoothly:
 
 .. code-block:: console
 
 	python3 $PORTALS_PATH/regressions/TRANSP_workflow.py
 
 
-This basic regression test will launch a TRANSP run and get results back for plotting. It it fails, it may be because the globus and TRANSP settings are nor properly indicated in the config file. It will eventually plot results in a notebook-like plot with different tabs with information about TRANSP outputs and inputs, similar to this:
-
-.. figure:: figs/TRANSPnotebook.png
-	:align: center
-	:alt: TGLF_Notebook
-	:figclass: align-center
-
 Run TRANSP
 ----------
 
-(beta)
-
-TRANSP runs are very personal and specific to each tokamak and plasma, as diagnostic availability strongly varies and namelist settings are not standarized.
-For this reason, this workflow assumes that a folder exists with all the UFILES and namelist required to run TRANSP:
-
-.. code-block:: python
-
-	folder  = /path/to/transpInputs
-
-First, one would initialize the TRANSP class with the given folder and the tokamak:
+For this tutorial we will need the following modules:
 
 .. code-block:: python
 
 	from portals.transp_tools import TRANSPtools
+	from portals.misc_tools   import IOtools
+
+TRANSP runs are very personal and specific to each tokamak and plasma, as diagnostic availability strongly varies and namelist settings are not standarized.
+For this reason, this workflow assumes that a folder exists with all the plasma information (UFILES) and namelist required to run TRANSP:
+
+.. code-block:: python
+
+	folder = IOtools.expandPath('$PORTALS_PATH/regressions/data/FolderTRANSP/')
+
+First, one would initialize the TRANSP class with the given folder and the tokamak name:
+
+.. code-block:: python
 
 	tokamak = 'CMOD'
-	t       = TRANSP(folder,tokamak)
+	transp  = TRANSP(folder,tokamak)
 
-
-Define your run names and MPI settings:
-
-.. code-block:: python
-
-	baseName    = '88664'
-	runid       = '88664Z12'
-	mpisettings = {'trmpi':1,'toricmpi':64,'ptrmpi':1}
-
-	t.defineRunParameters(runid,baseName,mpisettings=mpisettings)
-
-Run TRANSP:
+Then, select a shotnumber and run name, such that the TRANSP simulation will have the complete name `shotnumber+runname`, and the MPI settings for the TRANSP run:
 
 .. code-block:: python
 
-	t.run()
+	shotnumber  = '88664'
+	runname     = 'A12'
+	mpisettings = { 'trmpi': 1, 'toricmpi': 64, 'ptrmpi': 1 }
 
-Check each 10 minutes until it finishes and grab the CDF file:
+	transp.defineRunParameters( shotnumber+runname, shotnumber, mpisettings = mpisettings )
 
-.. code-block:: python
-
-	t.checkUntilFinished(checkMin=10)
-
-
-Interpreting TRANSP results
----------------------------
-
-When TRANSP has been run without the MDS+ option (default in PORTALS), a netCDF4 file is generated (`/path/to/file.CDF`). This file can be easily read by the PORTALS framework:
+Submit the TRANSP run:
 
 .. code-block:: python
 
-	from portals.transp_tools.CDFtools import CDFreactor
+	transp.run()
 
-	transp_results = CDFreactor( '/path/to/file.CDF' )
+Check every 10min if the run has finished, and grab final results when they are ready:
 
-The transp_results is a class that parses important TRANSP outputs.
+.. code-block:: python
+
+	transp.checkUntilFinished( label = runname, checkMin = 10 )
+
+Once the run has finished, results can be plotted:
+
+.. code-block:: python
+
+	t.plot( label = runname ) 
+
+As a result, a TRANSP notebook with different tabs will be opened with all relevant output quantities:
+
+.. figure:: figs/TRANSPnotebook.png
+	:align: center
+	:alt: TRANSP_Notebook
+	:figclass: align-center
+
+Read results that already exist
+-------------------------------
+
+If TRANSP has already been run and the .CDF results file already exists (cdf_file), the workflow in the previous section is not needed and one can simply read and plot the results:
+
+.. code-block:: python
+
+	from portals.transp_tools import CDFtools
+
+	transp_results = CDFtools.CDFreactor( cdf_file )
+
+	transp_results.plotRun()
+
+`transp_results` is a class that parses important TRANSP outputs.
 Example: To plot the electron temperature (in keV) as a function of the square root of the normalized toroidal flux coordinate at the top of the last simulated sawtooth (or last simulated time if no sawtooth present):
 
 .. code-block:: python
 
 	import matplotlib.pyplot as plt
+
 	plt.ion(); fig, ax = plt.subplots()
 
 	index_sawtooth = transp_results.ind_saw
-	rho   = transp_results.x[index_sawtooth,:]
-	TeKeV = transp_results.Te[index_sawtooth,:]
+	rho            = transp_results.x[index_sawtooth,:]
+	TeKeV          = transp_results.Te[index_sawtooth,:]
 
 	ax.plot(rho,TeKeV)
 
@@ -91,9 +104,7 @@ To plot all important time and spatial variables (at time `t1` seconds), simply 
 
 	transp_results.plotRun( time = t1 )
 
-This command should have created a notebook-like plot with different tabs with information about TRANSP outputs, similar to the result of regression test above.
+.. note::
 
-Detailed information
---------------------
+	The contents of the TRANSP class `CDFreactor` can be found in `transp_tools.CDFtools.py` if one wants to understand what post-processing is applied to TRANSP outputs and the units of the variables.
 
-- The contents of the TRANSP class `CDFreactor` can be found in `transp_tools.CDFtools.py` if one wants to understand what post-processing is applied to TRANSP outputs and the units of the variables.
