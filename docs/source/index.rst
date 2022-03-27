@@ -6,6 +6,8 @@ Developed and maintained by Pablo Rodriguez-Fernandez, MIT Plasma Science and Fu
 
 Github repo: https://github.com/pabloprf/PORTALS  
 
+License: :ref:`License and Contributions`
+
 .. note::
 
    This project is under active development.
@@ -28,12 +30,13 @@ The basis of PORTALS is to handle the standalone execution of codes and interpre
 These python objects can directly be called in a custom Bayesian Optimization framework (see :ref:`Optimization` for more details).
 
 
-Contents
+Documentation Contents
 --------
 
 .. toctree::
 
    getting_started
+   lincese
    standalone
    optimization
    api

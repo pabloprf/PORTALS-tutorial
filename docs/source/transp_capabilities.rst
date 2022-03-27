@@ -1,4 +1,4 @@
-TRANSP Capabilities
+TRANSP
 ===================
 
 Before you go through these instructions for specific applications of PORTALS, make sure you have followed the instructions in [README](./README.md). You can run a regression test:

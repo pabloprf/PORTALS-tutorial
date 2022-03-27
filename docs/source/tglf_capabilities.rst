@@ -1,4 +1,4 @@
-TGLF Capabilities
+TGLF
 =================
 
 **PORTALS** can be used to run the TGLF model, interpret results, plot revelant quantities and perform scans and transport analyses.
