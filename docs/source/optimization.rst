@@ -1,7 +1,7 @@
 Optimization
 ============
 
-**PORTALS** can be used to optimize any custom function (:ref:`Optimize a custom function`) or simulations that have already been developed in the code (:ref:`Current fusion applications`).
+**PORTALS** can be used to optimize any custom function (:ref:`Optimize a custom function`) or simulations that have already been developed in the code (:ref:`Current fusion applications`), such as :ref:`VITALS` and :ref:`PRISA`.
 Make sure you follow the :ref:`Installation` tutorial for information on how to get PORTALS working and how to configure your setup.
 
 Once setup has been successful, the following regression test should run smoothly:
@@ -9,6 +9,14 @@ Once setup has been successful, the following regression test should run smoothl
 .. code-block:: console
 
    python3 $PORTALS_PATH/regressions/PORTALS_workflow.py
+
+Current fusion applications
+---------------------------
+
+.. toctree::
+
+   vitals_capabilities
+   prisa_capabilities
 
 Optimize a custom function
 --------------------------
@@ -28,7 +36,7 @@ Select the location of the PORTALS namelist (see :ref:`Understanding the PORTALS
 .. code-block:: python
 
    folder    = IOtools.expandPath('$PORTALS_PATH/regressions/scratch/portals_tut/')
-   namelist  = IOtools.expandPath('$PORTALS_PATH/regressions/data/namelist_examples/opt_example.namelist')
+   namelist  = IOtools.expandPath('$PORTALS_PATH/regressions/namelist_examples/opt_example.namelist')
 
 Then create your custom optimization object as a child of the parent `STRATEGYtools.FUNmain` class. You only need to modify what operations need to occur inside the `run()` method. In this example, we are using `$x^2$` as our function with a 5% error:
 
@@ -64,7 +72,7 @@ Then, create an object from the previously defined class:
 
 .. code-block:: python
 
-   opt_fun1D  = opt_class( folderWork, namelist = namelist )
+   opt_fun1D  = opt_class( folder, namelist = namelist )
 
 .. note::
 
@@ -81,7 +89,7 @@ Once finished, we can plot the results easily with:
 
 .. code-block:: python
 
-   fn,res,prfs_model = BOgraphics.retrieveResults(folderWork,pkl_YN=True,doNotShow=True)
+   fn,res,prfs_model = BOgraphics.retrieveResults( folder, pkl_YN = True, doNotShow=True )
    fn.show()
 
 
@@ -89,6 +97,7 @@ Understanding the PORTALS namelist
 ----------------------------------
 
 The PORTALS namelist contains many parameters (as it is currently under development and improvement). An example can be found in '$PORTALS_PATH/regressions/data/namelist_examples/opt_example.namelist'.
+
 A generic user would only need to care about the following parameters.
 
 - Problem selection: The objective functions names (OPT_ofs) and values (OPT_calofs). The design variables names (OPT_dvs) , minimum (OPT_dvs_min), maximum (OPT_dvs_max) and baseline (OPT_BaselineDV) values.
@@ -118,14 +127,8 @@ A generic user would only need to care about the following parameters.
 Understanding the PORTALS outputs
 ---------------------------------
 
+As a result of the last step of :ref:`Optimize a custom function`, optimization results are plotted...
+
 *Nothing here yet*
-
-Current fusion applications
----------------------------
-
-.. toctree::
-
-   vitals_capabilities
-
 
 
