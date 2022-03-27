@@ -73,7 +73,7 @@ For example, the following two commands will run TGLF with saturation rule numbe
 
 	One can change every TGLF input with the `extraOptions = {}` dictionary, as shown earlier. However, `GACODEdefaults.py` contains a list of presets for TGLF that can be selected by simply passing the argument `TGLFsettings` to the `.run()` method. Available preset are:
 
-	- TGFLsettings = 0: Minimal working example
+	- TGLFsettings = 0: Minimal working example
 	- TGLFsettings = 1: "Old" ES SAT1
 	- TGLFsettings = 2: ES SAT0
 	- TGLFsettings = 3: ES SAT1 (a.k.a. SAT1geo)
@@ -139,7 +139,7 @@ Then, when running the `.prep()` method you should tell the code to use specific
     cdf = tglf.prep( folder, 
                      inputgacode    = inputgacode_file,
                      specificInputs = inputsTGLF,
-                     restart        = False)
+                     restart        = False )
 
 The rest of the workflow is identical.
 
