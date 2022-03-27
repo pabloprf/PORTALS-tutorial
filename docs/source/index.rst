@@ -2,7 +2,6 @@ PORTALS: a toolbox for optimization tasks in fusion and plasma physics
 ======================================================================
 
 **PORTALS** is a light-weight, command-line, object-oriented Python library for *plasma physics* and *fusion energy* researchers that simplifies optimization tasks.
-
 Developed and maintained by Pablo Rodriguez-Fernandez, MIT Plasma Science and Fusion Center, 2018-2021.
 
 Github repo: https://github.com/pabloprf/PORTALS  
@@ -22,8 +21,11 @@ Github repo: https://github.com/pabloprf/PORTALS
 Overview
 --------
 
-**PORTALS** was developed as a by-product of transport and optimization research projects at the MIT Plasma Science and Fusion Center in 2018, and has been improved since.
-It aims to 
+PORTALS was developed as a by-product of transport and optimization research projects at the MIT Plasma Science and Fusion Center in 2018, and has been improved since.
+Its original acronym was *Performance Optimization of Reactors via Training of Active Learning Surrogates*, but now PORTALS stands on its own, as a *portal* to various plasma physics activities.
+
+The basis of PORTALS is to handle the standalone execution of codes and interpretation of results in object-oriented python scripts (see :ref:`Standalone Capabilities` for more details).
+These python objects can directly be called in a custom Bayesian Optimization framework (see :ref:`Optimization` for more details).
 
 
 Contents
