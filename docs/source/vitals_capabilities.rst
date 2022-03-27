@@ -87,7 +87,7 @@ Then, as it the case for all optimization problems in PORTALS, you must create a
 
 .. code-block:: python
 
-	namelist   = IOtools.expandPath( '$PORTALS_PATH/regressions/data/namelist_examples/vitals_example.namelist' )
+	namelist   = IOtools.expandPath( '$PORTALS_PATH/regressions/namelist_examples/vitals_example.namelist' )
 	vitals_fun = VITALSmain.evaluateVITALS( folder, namelist = namelist )
 
 Once the VITALS object has been created, parameters such as the TGLF control inputs can be chosen:
@@ -121,6 +121,4 @@ We can plot the VITALS results easily with:
 .. code-block:: python
 
 	vitals_fun.plot_optimization_results()
-
-
 

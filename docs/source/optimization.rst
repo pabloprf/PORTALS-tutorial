@@ -88,6 +88,36 @@ Once finished, we can plot the results easily with:
 Understanding the PORTALS namelist
 ----------------------------------
 
+The PORTALS namelist contains many parameters (as it is currently under development and improvement). An example can be found in '$PORTALS_PATH/regressions/data/namelist_examples/opt_example.namelist'.
+A generic user would only need to care about the following parameters.
+
+- Problem selection: The objective functions names (OPT_ofs) and values (OPT_calofs). The design variables names (OPT_dvs) , minimum (OPT_dvs_min), maximum (OPT_dvs_max) and baseline (OPT_BaselineDV) values.
+
+.. code-block:: console
+
+   OPT_ofs        = [z]    
+   OPT_calofs     = [8.0]  
+
+   OPT_dvs        = [x]
+   OPT_dvs_min    = [-1]   
+   OPT_BaselineDV = [2.0] 
+   OPT_dvs_max    = [4.0]
+
+- Main optimization parameters: Number of initial training points (OPT_initialPoints), number of optimization iterations (OPT_BOiterations), number of function evaluations in parallel (OPT_parallelCalls)
+
+.. code-block:: console
+
+   OPT_initialPoints   = 4
+   OPT_BOiterations    = 3                   
+   OPT_parallelCalls   = 1 
+
+.. note::
+   
+   The namelist contains many other variables that control the surrogate model, correction techniques and many other aspects of the framework, but that requires being an advanced user.
+
+Understanding the PORTALS outputs
+---------------------------------
+
 *Nothing here yet*
 
 Current fusion applications
