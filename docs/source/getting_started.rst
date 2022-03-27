@@ -52,6 +52,10 @@ For example, if `"tglf":"engaging"` in `preferences`, this means that, every tim
 
 .. code-block:: console
 
+    "preferences": {
+        "tglf":             "engaging",
+        "verbose_level":    "1"
+    },
     "engaging": {
         "machine":          "eofe7.mit.edu", 
         "username":         "pablorf",
@@ -61,47 +65,26 @@ For example, if `"tglf":"engaging"` in `preferences`, this means that, every tim
         }
 
 .. warning::
-   If you select to run a code in a given machine, please make sure you have ssh rights to that machine with the login instructions specified.
+   If you select to run a code in a given machine, please make sure you have ssh rights to that machine with the login instructions specified. PORTALS will attempt to secure-copy and access that machine through a standard SSH connection and it must therefore be set-up prior to launching PORTALS. Make sure that you can ssh with `ssh username@machine`, and it is recommended that no password is required for the SSH keys, but it is up to the user. Otherwise PORTALS will ask for the password very often.
 
-`preferences` in `config_user.json` also includes a `"verbose_level"`, which indicates how many messages are printed in the terminal when running PORTALS. For debugging purposes, it is recommended a maximum verbose level of `5`. For production runs, a minimum verbose level of `1` is recommended so that you only get important messages.
+`preferences` in `config_user.json` also includes a `"verbose_level"`, which indicates how many messages are printed to the terminal when running PORTALS. For debugging purposes, it is recommended a maximum verbose level of `5`. For production runs, a minimum verbose level of `1` is recommended so that you only get important messages.
 
 
 Notes on simulation codes
 -------------------------
 
-Note that **PORTALS** does not maintain or develop the simulation codes that are used within it, such as those from `GACODE <http://gafusion.github.io/doc/index.html>`_ or `TRANSP <hhttps://transp.pppl.gov/index.html>`_. It assumes that proper permissions have been obtained and that working versions of those codes exist in the machine configured to run them.
+Note that PORTALS does not maintain or develop the simulation codes that are used within it, such as those from `GACODE <http://gafusion.github.io/doc/index.html>`_ or `TRANSP <hhttps://transp.pppl.gov/index.html>`_. It assumes that proper permissions have been obtained and that working versions of those codes exist in the machine configured to run them.
 
-Notes on running **GACODE** in the `ENGAGING <https://www1.psfc.mit.edu/computers/cluster/accessing.html>`_ machine:
-- The user must install the GACODE repo in the user's home directory, by following instructions here: http://gafusion.github.io/doc/download.html.
 
-The GACODE platform for ENGAGING is `PSFCLUSTER`. The `.bashrc` file should contain:
+* Use of codes at MIT (mfews and `ENGAGING <https://www1.psfc.mit.edu/computers/cluster/accessing.html>`_ )
 
-.. code-block:: console
+- The user must install the GACODE repo in the user's home directory, by following instructions here: http://gafusion.github.io/doc/download.html. The platform for ENGAGING is `PSFCLUSTER`.
 
-   export GACODE_PLATFORM=PSFCLUSTER
-   export GACODE_ROOT=/path/to/gacode/
-   . ${GACODE_ROOT}/shared/bin/gacode_setup
-   . ${GACODE_ROOT}/platform/env/env.${GACODE_PLATFORM}
-
-Then, to install:
+- To run the NTCC and TRANSP toolsets in the MFEWS computers, make sure you have in the .bashrc file:
 
 .. code-block:: console
 
-   cd /path/to/gacode/
-   make clean
-   make
-
-- If calling the GACODE routines fail (e.g. when using `profiles_gen`), then it could be because of python modules not installed. Please do in ENGAGING:
-
-.. code-block:: console
-
-   pip3 install numpy matplotlib scipy fortranformat scikit-image --user
-
-
-- If building the GACODE suite fails and throws errors related to `.mod` files, make sure you remove all `.mod` files from subfolders.
-
-- To run the GACODE suite, the user must have SSH connections set-up to the MIT ENGAGING cluster. PORTALS will attempt to secure-copy and access that machine through a standard SSH connection and it must therefore be set-up prior to launching PORTALS. Make sure that you can ssh with `ssh username@eofe7.mit.edu`, and it is recommended that no password is required for the SSH keys, but it is up to the user. Otherwise PORTALS will ask for the password very often.
-
-- To run the NTCC and TRANSP toolsets, working on a MFEWS computer is required as of now.
+   export PORTALS_PATH=/home/pablorf/PORTALS
+   source $PORTALS_PATH/config/portals.bashrc
 
 

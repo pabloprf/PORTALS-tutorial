@@ -25,7 +25,7 @@ Select the location of the input.gacode file to start the simulation from. Note 
 .. code-block:: python
 
 	gacode_file = IOtools.expandPath( '$PORTALS_PATH/regressions/data/input.gacode'  )
-	folder   	= IOtools.expandPath( '$PORTALS_PATH/regressions/scratch/tgyro_tut/' )
+	folder      = IOtools.expandPath( '$PORTALS_PATH/regressions/scratch/tgyro_tut/' )
 
 Create a PROFILES class from the input.gacode file:
 
@@ -42,9 +42,9 @@ Create a PROFILES class from the input.gacode file:
 		profiles.plot()
 
 	.. figure:: figs/PROFILESnotebook.png
-	:align: center
-	:alt: TGLF_Notebook
-	:figclass: align-center
+		:align: center
+		:alt: PROFILES_Notebook
+		:figclass: align-center
 
 Now the TGYRO class can be created:
 
@@ -57,12 +57,12 @@ Now it is time to set the TGYRO settings, such as the radial range (vectorRange[
 
 .. code-block:: python
 
-	vectorRange 	= [0.3,0.8,4]
-	solver 			= { 'step_jac':  1E-2, 'step_max':1E-2,'res_method': 2, 'tgyro_method': 6, 'relax_param': 0.1 } 
+	vectorRange     = [0.3,0.8,4]
+	solver          = { 'step_jac':  1E-2, 'step_max':1E-2,'res_method': 2, 'tgyro_method': 6, 'relax_param': 0.1 } 
 	physics_options = { 'TargetType':2 }
 	PredictionSet   = [1,1,0] # Te, Ti, ne
 
-	iterations 		= 5
+	iterations      = 5
 	TGLFsettings    = 5
 
 
@@ -70,12 +70,12 @@ Now TGYRO can be run:
 
 .. code-block:: python
 
-	tgyro.run( subFolderTGYRO       = 'run1/',     iterations            = iterations,
-			   vectorRange          = vectorRange, PredictionSet         = PredictionSet,
-			   TGLFsettings         = TGLFsettings,
-			   TGYRO_solver_options = solver,      TGYRO_physics_options = physics_options)
+    tgyro.run( subFolderTGYRO       = 'run1/',      iterations            = iterations,
+               vectorRange          = vectorRange,  PredictionSet         = PredictionSet,
+               TGLFsettings         = TGLFsettings,
+               TGYRO_solver_options = solver,       TGYRO_physics_options = physics_options)
 
-And read:
+Read:
 
 .. code-block:: python
 
