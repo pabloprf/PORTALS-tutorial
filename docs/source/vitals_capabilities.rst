@@ -18,7 +18,7 @@ For this tutorial we will need the following modules and the folder to run VITAL
 	from portals.gacode_tools     import TGLFmodule
 	from portals.misc_tools       import IOtools
 	from portals_opt.vitals_tools import VITALSmain
-	from portals_opt.opt_tools 	  import STRATEGYtools
+	from portals_opt.opt_tools    import STRATEGYtools
 
 	folder = IOtools.expandPath( '$PORTALS_PATH/regressions/scratch/vitals_tut/' )
 
@@ -114,7 +114,7 @@ Now we can create and launch the PORTALS optimization process from the beginning
 
 .. code-block:: python
 
-	portals_bo = STRATEGYtools.PRF_BO(vitals_fun, restart = True )
+	portals_bo = STRATEGYtools.PRF_BO(vitals_fun, restartYN = True )
 	portals_bo.run()
 
 .. note::
@@ -128,5 +128,15 @@ We can plot the VITALS results easily with:
 
 .. code-block:: python
 
-	vitals_fun.plot_optimization_results()
+	vitals_fun.plot_optimization_results(full=True)
+
+In the previous command, ``full=True`` means that VITALS will now run TGLF again for the base case (Evaluation #0) and the best case (best in terms of the lowest mean residual), then it will plot them together as a TGLF Notebook.
+All information of the optimization process is also included in tabs in the notebook.
+
+.. figure:: figs/VITALSnotebook1.png
+	:align: center
+	:alt: VITALS_Notebook
+	:figclass: align-center
+
+
 

@@ -96,7 +96,7 @@ As a result, a TGYRO notebook with different tabs will be opened with all releva
 
 .. figure:: figs/TGYROnotebook.png
 	:align: center
-	:alt: TGLF_Notebook
+	:alt: TGYRO_Notebook
 	:figclass: align-center
 
 
@@ -111,7 +111,7 @@ Create a profiles class with the `input.gacode` file that TGYRO used to run and 
 	from portals.misc_tools   import IOtools
 
 	gacode_file = IOtools.expandPath('$PORTALS_PATH/regressions/data/input.gacode')
-	folder   	= IOtools.expandPath('$PORTALS_PATH/regressions/scratch/tgyro_tut/run1/')
+	folder      = IOtools.expandPath('$PORTALS_PATH/regressions/scratch/tgyro_tut/run1/')
 
 	profiles    = PROFILESmodule.PROFILES_GACODE(gacode_file)
 	tgyro_out   = TGYROmodule.TGYROoutput(folder,profiles=profiles)
