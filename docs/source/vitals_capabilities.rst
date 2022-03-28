@@ -1,7 +1,7 @@
 VITALS
 ======
 
-The VITALS (**V**alidation via **I**terative **T**raining of **A**ctive **L**earning **S**urrogates) method, described in `P. Rodriguez-Fernandez et al., Fusion Technol. 74:1-2, 65-76 (2018) <https://www.tandfonline.com/doi/full/10.1080/15361055.2017.1396166>`_ consists of using Bayesian Optimization techniques to help in the multi-channel validation of transport models.
+The VITALS (Validation via Iterative Training of Active Learning Surrogates) method, described in `P. Rodriguez-Fernandez et al., Fusion Technol. 74:1-2, 65-76 (2018) <https://www.tandfonline.com/doi/full/10.1080/15361055.2017.1396166>`_ consists of using Bayesian Optimization techniques to help in the multi-channel validation of transport models.
 
 VITALS has been implemented to work with the TGLF model, and can be run using the PORTALS repo, following a few steps described below.
 
@@ -32,13 +32,13 @@ As a starting point of VITALS, you need to prepare and run TGLF for the base cas
 	cdf = tglf.prep( folder, inputgacode = inputgacode_file)
 	tglf.run( subFolderTGLF = 'run_base/', TGLFsettings = 5)
 
-If you want to match fluctuation levels or nT cross-phase angles in VITALS, information about the synthetic diagnostic must be provided in the `read()` stage for each radial location:
+If you want to match fluctuation levels or nT cross-phase angles in VITALS, information about the synthetic diagnostic must be provided in the ``read()`` stage for each radial location:
 
 .. code-block:: python
 
     tglf.read( label = 'run_base', d_perp_cm = { 0.5: 1.9 } )
 
-Now, once TGLF has run and outputs have been read and stored in the `tglf.results` dictionary, information about the values of experimental fluctuations and heat flux error bars needs to be provided:
+Now, once TGLF has run and outputs have been read and stored in the ``tglf.results`` dictionary, information about the values of experimental fluctuations and heat flux error bars needs to be provided:
 
 .. code-block:: python
 
@@ -58,7 +58,7 @@ Now, once TGLF has run and outputs have been read and stored in the `tglf.result
 	Qi_base = tglf.NormalizationSets['EXP']['exp_Qi'][np.argmin(np.abs(tglf.NormalizationSets['EXP']['rho']-0.5))]
 	tglf.NormalizationSets['EXP']['exp_Qi_error']       = [ Qi_base * 0.2 ]
 
-At this point, the TGLF class is ready to go into VITALS. One can give the `tglf` object directly to VITALS, or you can save it in a pickle file to read later:
+At this point, the TGLF class is ready to go into VITALS. One can give the ``tglf`` object directly to VITALS, or you can save it in a pickle file to read later:
 
 .. code-block:: python
 
@@ -96,6 +96,10 @@ Once the VITALS object has been created, parameters such as the TGLF control inp
 
 	vitals_fun.TGLFparameters['TGLFsettings']  = 5
 
+.. note::
+
+	At this point, the parameter ``vitals_fun.VITALSparameters['launchSlurm']`` is defaulted to ``False``. However, if the user wants to run VITALS as a slurm job in a cluster, this parameter should be set to ``True``.
+
 We are now ready to prepare the VITALS class. Here we have two options:
 
 .. code-block:: python
@@ -106,12 +110,16 @@ We are now ready to prepare the VITALS class. Here we have two options:
 	# Option 2. Pass the tglf pickled file
 	vitals_fun.prepare( tglf_file, 0.5, ofs, dvs, dvs_min, dvs_max, classLoaded = False )
 
-Now we can create and launch the PORTALS optimization process from the beginning (i.e. `restart = True`):
+Now we can create and launch the PORTALS optimization process from the beginning (i.e. ``restart = True``):
 
 .. code-block:: python
 
 	portals_bo = STRATEGYtools.PRF_BO(vitals_fun, restart = True )
 	portals_bo.run()
+
+.. note::
+
+	If the user wants to run VITALS as a slurm job in a cluster, it is recommended that the keyword argument ``askQuestions = False`` is passed to ``PRF_BO()``.
 
 3. VITALS Interpretation 
 ------------------------

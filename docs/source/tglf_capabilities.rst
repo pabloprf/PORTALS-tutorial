@@ -20,7 +20,7 @@ For this tutorial we will need the following modules:
 	from portals.gacode_tools import TGLFmodule
 	from portals.misc_tools   import IOtools
 
-Select the location of the input.gacode file to start the simulation from. Note that you can use the `IOtools.expandPath()` method to work with relative paths. You should also select the folder where the simulation will be run:
+Select the location of the input.gacode file to start the simulation from. Note that you can use the ``IOtools.expandPath()`` method to work with relative paths. You should also select the folder where the simulation will be run:
 
 .. code-block:: python
 
@@ -143,7 +143,7 @@ Then, when running the ``.prep()`` method you should tell the code to use specif
                      specificInputs = inputsTGLF,
                      restart        = False )
 
-The rest of the workflow is identical.
+The rest of the workflow is identical, including ``.run()``, ``.read()`` and ``.plotRun()``.
 
 .. note::
 
@@ -165,8 +165,13 @@ When TGLF has been run in a folder ``folder_tglf_already_run`` outside of the PO
 
 Note that one needs to provide the *input.gacode* file that was used to generate the TGLF input file, as well as the rho location (as ``NoSuffixesRho``). This is because the TGLF files by themselves do not contain information about the normalization, thus one needs more information to build useful output quantities like heat fluxes in real units.
 
-Now, one can plot all TGLF results:
+Now, one can plot all TGLF results as before with ``.plotRun()``.
 
-.. code-block:: python
 
-	tglf_results.plotRun()
+Run 1D scans of TGLF input parameter
+------------------------------------
+
+*Nothing here yet*
+
+
+
