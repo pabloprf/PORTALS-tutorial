@@ -38,6 +38,9 @@ If you want to match fluctuation levels or nT cross-phase angles in VITALS, info
 
     tglf.read( label = 'run_base', d_perp_cm = { 0.5: 1.9 } )
 
+.. note:: 
+	Currently, the synhetic diagnostic to produce fluctuation levels out of amplitude spectra is handled by the ``convolution_CECE`` function in ``portals/gacode_tools/GACODEdefaults.py``. To understand the meaning of the ``d_perp_cm`` keyword argument provided above, please check out the code.
+
 Now, once TGLF has run and outputs have been read and stored in the ``tglf.results`` dictionary, information about the values of experimental fluctuations and heat flux error bars needs to be provided:
 
 .. code-block:: python
@@ -57,6 +60,9 @@ Now, once TGLF has run and outputs have been read and stored in the ``tglf.resul
 	tglf.NormalizationSets['EXP']['exp_Qi_rho']        = [0.5]
 	Qi_base = tglf.NormalizationSets['EXP']['exp_Qi'][np.argmin(np.abs(tglf.NormalizationSets['EXP']['rho']-0.5))]
 	tglf.NormalizationSets['EXP']['exp_Qi_error']       = [ Qi_base * 0.2 ]
+
+.. note:: 
+	Note that the errors (standard deviation) are provided in absolute units (percent fluctuaiton, degrees, MW/m^2), but the Qe and Qi errors in the example above are written such as they are 20% from the base case. This is because the TGLF object already includes those experimental fluxes because they existed in the *input.gacode* file. However, this way of specifying the error is completely up to the user.
 
 At this point, the TGLF class is ready to go into VITALS. One can give the ``tglf`` object directly to VITALS, or you can save it in a pickle file to read later:
 
@@ -95,6 +101,7 @@ Once the VITALS object has been created, parameters such as the TGLF control inp
 .. code-block:: python
 
 	vitals_fun.TGLFparameters['TGLFsettings']  = 5
+	vitals_fun.TGLFparameters['extraOptions']  = {}
 
 .. note::
 
