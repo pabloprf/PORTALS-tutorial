@@ -24,50 +24,50 @@ Select the location of the input.gacode file to start the simulation from. Note 
 
 .. code-block:: python
 
-	inputgacode_file = IOtools.expandPath( '$PORTALS_PATH/regressions/data/input.gacode' )
-	folder           = IOtools.expandPath( '$PORTALS_PATH/regressions/scratch/tglf_tut/' )
+	inputgacode_file = IOtools.expandPath('$PORTALS_PATH/regressions/data/input.gacode')
+	folder           = IOtools.expandPath('$PORTALS_PATH/regressions/scratch/tglf_tut/')
 
-The TGLF class can be initialized by providing the radial location (in square root of normalized toroidal flux, `rho`) to run. Note that the values are given as a list, and several radial locations can be run at once:
-
-.. code-block:: python
-
-	tglf = TGLFmodule.TGLF( rhos = [ 0.5, 0.7 ] )
-
-To generate the input files (input.tglf) to TGLF at each radial location, **PORTALS** needs to run a few commands to correctly map the quantities in the input.gacode file to the ones required by TGLF. This is done automatically with the `prep()` command. Note that **PORTALS** has a *only-run-if-needed* philosophy and if it finds that the input files to TGLF already exist in the working folder, the preparation method will not run any command, unless a `restart=True` argument is provided.
+The TGLF class can be initialized by providing the radial location (in square root of normalized toroidal flux, ``rho``) to run. Note that the values are given as a list, and several radial locations can be run at once:
 
 .. code-block:: python
 
-	cdf = tglf.prep( folder, inputgacode = inputgacode_file, restart = False )
+	tglf = TGLFmodule.TGLF(rhos=[0.5, 0.7])
+
+To generate the input files (input.tglf) to TGLF at each radial location, **PORTALS** needs to run a few commands to correctly map the quantities in the input.gacode file to the ones required by TGLF. This is done automatically with the ``prep()`` command. Note that **PORTALS** has a *only-run-if-needed* philosophy and if it finds that the input files to TGLF already exist in the working folder, the preparation method will not run any command, unless a ``restart = True`` argument is provided.
+
+.. code-block:: python
+
+	cdf = tglf.prep(folder,inputgacode=inputgacode_file,restart=False )
 
 .. note::
 
-	The `.prep()` method, when applied to a case that starts with an input.gacode file, launches a `TGYRO` run for a "zero" iteration to generate `input.tglf` at specific `rho` locations from the `input.gacode`. This method to generate input files is inspired by how the `OMFIT framework <https://omfit.io/index.html>`_ works.
+	The ``.prep()`` method, when applied to a case that starts with an input.gacode file, launches a `TGYRO` run for a "zero" iteration to generate *input.tglf* at specific ``rho`` locations from the *input.gacode*. This method to generate input files is inspired by how the `OMFIT framework <https://omfit.io/index.html>`_ works.
 
-Now, we are ready to run TGLF. Once the `prep()` command has finished, one can run TGLF with different settings, assumptions, etc. That is why, at this point, a sub-folder name for this specific run can be provided. Similarly to the `prep()` command, a `restart` flag can be provided.
+Now, we are ready to run TGLF. Once the ``prep()`` command has finished, one can run TGLF with different settings, assumptions, etc. That is why, at this point, a sub-folder name for this specific run can be provided. Similarly to the ``prep()`` command, a ``restart`` flag can be provided.
 The set of control inputs to TGLF (like saturation rule, electromagnetic effects, etc.) are provided in two ways.
-First, the argument `TGLFsettings` (which goes from `1` to `5` as of now) indicates the base case to start with. The user is referred to `GACODEdefaults.py` to understand the meaning of each setting.
-Second, the argument `extraOptions` can be passed as a dictionary of variables to change.
-For example, the following two commands will run TGLF with saturation rule number 2 with and without electromagnetic effets. After each `run()` command, a `read()` is needed, to populate the `tglf.results` dictionary with the TGLF outputs (`label` refers to the dictionary key for each run):
+First, the argument ``TGLFsettings`` (which goes from 1 to 5 as of now) indicates the base case to start with. The user is referred to ``GACODEdefaults.py`` to understand the meaning of each setting.
+Second, the argument ``extraOptions`` can be passed as a dictionary of variables to change.
+For example, the following two commands will run TGLF with saturation rule number 2 with and without electromagnetic effets. After each ``run()`` command, a ``read()`` is needed, to populate the *tglf.results* dictionary with the TGLF outputs (``label`` refers to the dictionary key for each run):
 
 .. code-block:: python
 
-    tglf.run(  subFolderTGLF = 'yes_em_folder/', 
-               TGLFsettings  = 5,
-               extraOptions  = {},
-               restart       = False )
+    tglf.run( subFolderTGLF = 'yes_em_folder/', 
+              TGLFsettings  = 5,
+              extraOptions  = {},
+              restart       = False )
 
-    tglf.read( label = 'yes_em' )
+    tglf.read(label='yes_em')
 
-    tglf.run(  subFolderTGLF = 'yes_em_folder/', 
-               TGLFsettings  = 5,
-               extraOptions  = {'USE_BPER':False},
-               restart       = False )
+    tglf.run( subFolderTGLF = 'yes_em_folder/', 
+              TGLFsettings  = 5,
+              extraOptions  = {'USE_BPER':False},
+              restart       = False )
 
-    tglf.read( label = 'no_em' )
+    tglf.read(label='no_em')
 
 .. note::
 
-	One can change every TGLF input with the `extraOptions = {}` dictionary, as shown earlier. However, `GACODEdefaults.py` contains a list of presets for TGLF that can be selected by simply passing the argument `TGLFsettings` to the `.run()` method. Available preset are:
+	One can change every TGLF input with the ``extraOptions = {}`` dictionary, as shown earlier. However, ``GACODEdefaults.py`` contains a list of presets for TGLF that can be selected by simply passing the argument ``TGLFsettings`` to the ``.run()`` method. Available preset are:
 
 	- TGLFsettings = 0: Minimal working example
 	- TGLFsettings = 1: "Old" ES SAT1
@@ -76,15 +76,15 @@ For example, the following two commands will run TGLF with saturation rule numbe
 	- TGLFsettings = 4: ES SAT2
 	- TGLFsettings = 5: EM SAT2
 
-	The user is not limited to use those combinations. One can start with a given `TGLFsettings` option, and then modify as many parameters as needed with the `extraOptions` dictionary.
+	The user is not limited to use those combinations. One can start with a given ``TGLFsettings`` option, and then modify as many parameters as needed with the ``extraOptions`` dictionary.
 
 
-In this example, `tglf.results['yes_em']` and `tglf.results['no_em']` are themselves dictionaries, so please do `.keys()` to get all the possible results that have been obtained.
+In this example, ``tglf.results['yes_em']`` and ``tglf.results['no_em']`` are themselves dictionaries, so please do ``.keys()`` to get all the possible results that have been obtained.
 TGLF results can be plotted together by indicating what labels to plot:
 	
 .. code-block:: python
 
-	tglf.plotRun( labels = ['yes_em', 'no_em'] )
+	tglf.plotRun(labels=['yes_em','no_em'])
 
 As a result, a TGLF notebook with different tabs will be opened with all relevant output quantities:
 
@@ -97,28 +97,31 @@ As a result, a TGLF notebook with different tabs will be opened with all relevan
 Run TGLF from TRANSP results file
 ---------------------------------
 
-If instead of an input.gacode, you have a TRANSP .CDF file (`cdf_file`) and want to run TGLF at a specific time (`time`) with an +- averaging time window (`avTime`), you must initialize the TGLF class as follows:
+If instead of an input.gacode, you have a TRANSP .CDF file (``cdf_file``) and want to run TGLF at a specific time (``time``) with an +- averaging time window (``avTime``), you must initialize the TGLF class as follows:
 
 .. code-block:: python
 
-	cdf_file = IOtools.expandPath( '$PORTALS_PATH/regressions/data/12345.CDF' )		
-	tglf     = TGLFmodule.TGLF( cdf = cdf_file, time = 2.5, avTime = 0.02, rhos = [ 0.5, 0.7 ] )
+    cdf_file = IOtools.expandPath('$PORTALS_PATH/regressions/data/12345.CDF')		
+    tglf     = TGLFmodule.TGLF( cdf    = cdf_file,
+                                rhos   = [0.5,0.7],
+                                time   = 2.5,
+                                avTime = 0.02 )
 
-Similarly as in the previous section, you need to run the `prep()` command, but this time you do not need to provide the input.gacode file:
+Similarly as in the previous section, you need to run the ``prep()`` command, but this time you do not need to provide the input.gacode file:
 
 .. code-block:: python
 
-	cdf = tglf.prep( folder, restart = False )
+	cdf = tglf.prep(folder,restart=False)
 
 The rest of the workflow is identical.
 
 .. note::
 
-	The `.prep()` method, when applied to a case that starts from a TRANSP .CDF file, now performs two extra operations:
+	The ``.prep()`` method, when applied to a case that starts from a TRANSP .CDF file, now performs two extra operations:
 
-	- `TRXPL` (https://w3.pppl.gov/~hammett/work/GS2/docs/trxpl.txt) to generate `plasmastate.cdf` and `.geq` files for a specific time-slice from the TRANSP outputs.
+	- **TRXPL** (https://w3.pppl.gov/~hammett/work/GS2/docs/trxpl.txt) to generate *plasmastate.cdf* and *.geq* files for a specific time-slice from the TRANSP outputs.
 
-	- `PROFILES_GEN` to generate an `input.gacode` file from the `plasmastate.cdf` and `.geq` files. This file is standard within the GACODE suite and contains all plasma information that is required to run core transport codes.
+	- **PROFILES_GEN** to generate an *input.gacode* file from the *plasmastate.cdf* and *.geq* files. This file is standard within the GACODE suite and contains all plasma information that is required to run core transport codes.
 
 	
 Run TGLF from input.tglf file
@@ -128,10 +131,10 @@ If you have a input.tglf file already, you can still use this script to run it. 
 
 .. code-block:: python
 
-	inputtglf_file = IOtools.expandPath( '$PORTALS_PATH/regressions/data/input.tglf' )
+	inputtglf_file = IOtools.expandPath('$PORTALS_PATH/regressions/data/input.tglf')
 	inputsTGLF     = { 0.5: TGLFmodule.TGLFinput( file = inputtglf_file ) }
 
-Then, when running the `.prep()` method you should tell the code to use specific inputs:
+Then, when running the ``.prep()`` method you should tell the code to use specific inputs:
 
 .. code-block:: python
 
@@ -150,17 +153,17 @@ The rest of the workflow is identical.
 Read results from external TGLF run
 -----------------------------------
 
-When TGLF has been run in a folder `tglf/` outside of the PORTALS framework, one can also use PORTALS to look at the ouput results as follows:
+When TGLF has been run in a folder ``folder_tglf_already_run`` outside of the PORTALS framework, one can also use PORTALS to look at the ouput results as follows:
 
 .. code-block:: python
 
-	tglf = TGLFmodule.TGLF()
+    tglf = TGLFmodule.TGLF()
 
-    tglf.read( folder            = 'tglf/',
-               input_profilesLoc = '/path/to/file.gacode',
+    tglf.read( folder            = folder_tglf_already_run,
+               input_profilesLoc = inputgacode_file,
                NoSuffixesRho     = 0.5 )
 
-Note that one needs to provide the `input.gacode` file that was used to generate the TGLF input file, as well as the `rho` location. This is because the TGLF files by themselves do not contain information about the normalization, thus one needs more information to build useful output quantities like heat fluxes in real units.
+Note that one needs to provide the *input.gacode* file that was used to generate the TGLF input file, as well as the rho location (as ``NoSuffixesRho``). This is because the TGLF files by themselves do not contain information about the normalization, thus one needs more information to build useful output quantities like heat fluxes in real units.
 
 Now, one can plot all TGLF results:
 

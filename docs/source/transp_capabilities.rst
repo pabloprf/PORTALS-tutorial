@@ -70,8 +70,8 @@ As a result, a TRANSP notebook with different tabs will be opened with all relev
 	:alt: TRANSP_Notebook
 	:figclass: align-center
 
-Read results from external TRANSP run¶
---------------------------------------
+Read results from external TRANSP run
+-------------------------------------
 
 If TRANSP has already been run and the .CDF results file already exists (cdf_file), the workflow in the previous section is not needed and one can simply read and plot the results:
 
