@@ -20,7 +20,7 @@ You can use *pip3* to install (note that PORTALS requires `python3`):
 .. code-block:: console
 
    cd $PORTALS_PATH
-   pip3 install . --user
+   pip3 install -e . --user
 
 
 User configuration
