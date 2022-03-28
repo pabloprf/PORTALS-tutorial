@@ -8,37 +8,20 @@ Then clone the github repository:
 
    git clone git@github.com:pabloprf/PORTALS.git
 
-
-Note that PORTALS requires `python3`. It will not work otherwise.
-The following packages are requied, and can be installed with `pip3`:
-
-.. code-block:: console
-
-   pip3 install ipython pyDOE deap seaborn uncertainties h5py netCDF4 fortranformat xarray urllib3 geomdl openpyxl scoop xlsxwriter xlrd statistics statsmodels dill notebook ipywidgets multiprocessing_on_dill torch gpytorch botorch --user
-
-
-The following packages do not affect standard usage but are recommended:
-
-.. code-block:: console
-
-   pip3 install PyQt5 torchvision ax-platform gptools --user
-
-
-The following packages do not affect standard usage but are useful to interact with OMFIT (in development, e.g. to read g-files):
-
-.. code-block:: console
-
-   pip3 install omfit_classes --user
-   pip3 install omas --user
-
-(Note, sometimes `omas` installation may fail because of dependencies. In such case, please do `pip3 install omas --user --no-dependencies`)
-
-Add to .bashrc and source:
+Add to your path (in *.bashrc* file) and source the configuration file:
 
 .. code-block:: console
 
    export PORTALS_PATH=/path/to/portals/
    source $PORTALS_PATH/config/portals.bashrc
+   
+You can use *pip3* to install (note that PORTALS requires `python3`):
+
+.. code-block:: console
+
+   cd $PORTALS_PATH
+   pip3 install . --user
+
 
 User configuration
 ------------------

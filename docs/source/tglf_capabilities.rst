@@ -33,7 +33,7 @@ The TGLF class can be initialized by providing the radial location (in square ro
 
 	tglf = TGLFmodule.TGLF(rhos=[0.5, 0.7])
 
-To generate the input files (input.tglf) to TGLF at each radial location, **PORTALS** needs to run a few commands to correctly map the quantities in the input.gacode file to the ones required by TGLF. This is done automatically with the ``prep()`` command. Note that **PORTALS** has a *only-run-if-needed* philosophy and if it finds that the input files to TGLF already exist in the working folder, the preparation method will not run any command, unless a ``restart = True`` argument is provided.
+To generate the input files (input.tglf) to TGLF at each radial location, PORTALS needs to run a few commands to correctly map the quantities in the input.gacode file to the ones required by TGLF. This is done automatically with the ``prep()`` command. Note that PORTALS has a *only-run-if-needed* philosophy and if it finds that the input files to TGLF already exist in the working folder, the preparation method will not run any command, unless a ``restart = True`` argument is provided.
 
 .. code-block:: python
 
