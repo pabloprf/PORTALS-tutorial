@@ -28,10 +28,9 @@ You can use ``pip3`` to install (note that PORTALS requires **python3**):
 
    .. code-block:: console
 
-      pip3 install -e .[omfit,graphics,optimization] --user
+      pip3 install -e .[graphics,optimization,omfit] --user
 
-   However, this installation may fail depending on what sudo permissions you have in the machine.
-
+   However, this installation may fail depending on what sudo permissions you have in the machine. These three sub-sets of packages are not required for standard use of PORTALS, but they are recommended to fully exploit what PORTALS can do.
 
 
 User configuration
