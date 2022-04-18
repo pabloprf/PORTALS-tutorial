@@ -112,10 +112,10 @@ We are now ready to prepare the VITALS class. Here we have two options:
 .. code-block:: python
 
 	# Option 1. Pass the tglf object directly
-	vitals_fun.prepare( tglf,      0.5, ofs, dvs, dvs_min, dvs_max, classLoaded = True  )
+	vitals_fun.prep( tglf,      0.5, ofs, dvs, dvs_min, dvs_max, classLoaded = True  )
 
 	# Option 2. Pass the tglf pickled file
-	vitals_fun.prepare( tglf_file, 0.5, ofs, dvs, dvs_min, dvs_max, classLoaded = False )
+	vitals_fun.prep( tglf_file, 0.5, ofs, dvs, dvs_min, dvs_max, classLoaded = False )
 
 Now we can create and launch the PORTALS optimization process from the beginning (i.e. ``restart = True``):
 

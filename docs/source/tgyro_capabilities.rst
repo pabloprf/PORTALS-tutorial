@@ -64,11 +64,10 @@ Now it is time to set the TGYRO settings, such as the radial range (vectorRange[
                         'tgyro_method':   6,
                         'relax_param':   0.1 } 
 
-    physics_options = { 'TargetType':2 }	# 2: Only evolve exchange, 3: Reactor
-    PredictionSet   = [1,1,0] 				# Predict: Te, Ti, ne
-
-    iterations      = 5
-    TGLFsettings    = 5
+    physics_options = { 'TargetType':2 }   # 2: Only evolve exchange, 3: Reactor
+    PredictionSet   = [1,1,0]              # Profiles to predict: [Te, Ti, ne]
+    iterations      = 5                    # Number of TGYRO iterations
+    TGLFsettings    = 5                    # TGLF pre-sets
 
 Now TGYRO can be run:
 
@@ -89,6 +88,8 @@ Read:
 	tgyro.read(label='run1')
 
 And plot:
+
+.. code-block:: python
 
 	tgyro.plotRun(labels=['run1'])
 
