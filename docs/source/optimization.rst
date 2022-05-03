@@ -89,8 +89,7 @@ Once finished, we can plot the results easily with:
 
 .. code-block:: python
 
-   fn,res,prfs_model = BOgraphics.retrieveResults( folder, pkl_YN = True, doNotShow=True )
-   fn.show()
+   opt_fun1D.plot_optimization_results()
 
 
 Understanding the PORTALS namelist

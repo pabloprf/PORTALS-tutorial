@@ -30,7 +30,7 @@ You can use ``pip3`` to install (note that PORTALS requires **python3**):
 
       pip3 install -e .[graphics,optimization,omfit] --user
 
-   However, this installation may fail depending on what sudo permissions you have in the machine. These three sub-sets of packages are not required for standard use of PORTALS, but they are recommended to fully exploit what PORTALS can do.
+   However, this installation may fail depending on what sudo permissions you have in the machine (or, in particular, omfit will fail if no fortran compiler is found). These three sub-sets of packages are not required for standard use of PORTALS, but they are recommended to fully exploit what PORTALS can do.
 
 
 User configuration
