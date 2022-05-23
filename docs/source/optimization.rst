@@ -29,7 +29,6 @@ For this tutorial we will need the following modules:
 
    from portals.misc_tools                import IOtools
    from portals_opt.opt_tools             import STRATEGYtools
-   from portals_opt.opt_tools.decoration  import BOgraphics
 
 Select the location of the PORTALS namelist (see :ref:`Understanding the PORTALS namelist` to understand how to construct the namelist file) and the folder to work on:
 

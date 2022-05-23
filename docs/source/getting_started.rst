@@ -15,23 +15,32 @@ Add to your path (in *.bashrc* file) and source the configuration file:
    export PORTALS_PATH=/path/to/portals/
    source $PORTALS_PATH/config/portals.bashrc
    
-You can use ``pip3`` to install (note that PORTALS requires **python3**):
+You can use ``pip3`` to install (note that PORTALS requires **python3**) all the required PORTALS dependencies.
 
 .. code-block:: console
 
-   cd $PORTALS_PATH
-   pip3 install -e . --user
+   pip3 install -e $PORTALS_PATH
 
 .. note::
    
-   If you wish to install all capabilities (including optimization, omfit compatibility and graphics options), it is recommended that ``pip3`` is run as follows
+   It may be useful to create a virtual environment to install required PORTALS dependencies:
 
    .. code-block:: console
 
-      pip3 install -e .[graphics,optimization,omfit] --user
+      python3 -m venv portals-env
+      source portals-env/bin/activate
+      pip3 install -e $PORTALS_PATH
 
-   However, this installation may fail depending on what sudo permissions you have in the machine (or, in particular, omfit will fail if no fortran compiler is found). These three sub-sets of packages are not required for standard use of PORTALS, but they are recommended to fully exploit what PORTALS can do.
+   Alternatively, you can use ``--user`` as a flag when doing ``pip3`` to install in your user local directory.
+   Note that it is possible that you need to install ``numpy`` or ``scipy`` prior to PORTALS.
 
+.. note::
+   
+   If you wish to install all capabilities (including optimization, omfit compatibility and graphics options), it is recommended that ``pip3`` is run as follows, even though you may need to update your fortran compiler.
+
+   .. code-block:: console
+
+      pip3 install -e $PORTALS_PATH[graphics,optimization,omfit]
 
 User configuration
 ------------------
