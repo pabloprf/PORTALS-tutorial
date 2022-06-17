@@ -32,7 +32,6 @@ You can use ``pip3`` to install (note that PORTALS requires **python3**) all the
       pip3 install -e $PORTALS_PATH
 
    Alternatively, you can use ``--user`` as a flag when doing ``pip3`` to install in your user local directory.
-   Note that it is possible that you need to install ``numpy`` or ``scipy`` prior to PORTALS.
 
 .. note::
    
@@ -84,7 +83,7 @@ Note that PORTALS does not maintain or develop the simulation codes that are use
 
 * Use of codes at MIT (MFEWS and `ENGAGING <https://www1.psfc.mit.edu/computers/cluster/accessing.html>`_ )
 
-   - The user must install the GACODE repo in the user's home directory, by following instructions here: http://gafusion.github.io/doc/download.html. The platform for ENGAGING is ``PSFCLUSTER``.
+   - The user must install the GACODE repo in the user's home directory, by following instructions here: http://gafusion.github.io/doc/download.html. The platform for ENGAGING is ``PSFCLUSTER``. Sometimes ``profiles_gen`` could fail because scikit-learn is not installed as a python3 module.
 
    - To run the NTCC and TRANSP toolsets in the MFEWS computers, make sure you have followed the setup process outlined above and have in the *.bashrc* file ``source $PORTALS_PATH/config/portals.bashrc``.
 
