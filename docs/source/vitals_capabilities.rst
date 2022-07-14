@@ -27,11 +27,12 @@ As a starting point of VITALS, you need to prepare and run TGLF for the base cas
 .. code-block:: python
 
 	inputgacode_file = IOtools.expandPath( '$PORTALS_PATH/regressions/data/input.gacode' )
-	rho 			 = 0.5
+	rho              = 0.5
 	
 	tglf = TGLFmodule.TGLF( rhos = [ rho ] )
 	cdf = tglf.prep( folder, inputgacode = inputgacode_file)
 	tglf.run( subFolderTGLF = 'run_base/', TGLFsettings = 5)
+	tglf.read( label = 'run_base' )
 
 
 .. note::
@@ -44,7 +45,7 @@ As a starting point of VITALS, you need to prepare and run TGLF for the base cas
 
 	Currently, the synhetic diagnostic to produce fluctuation levels out of amplitude spectra is handled by the ``convolution_CECE`` function in ``portals/gacode_tools/GACODEdefaults.py``. To understand the meaning of the ``d_perp_cm`` keyword argument provided above, please check out the code.
 
-Now, once TGLF has run and outputs have been read and stored in the ``tglf.results`` dictionary, information about the experiment needs to be provided. Note that the errors (standard deviation) are provided in absolute units (percent fluctuaiton, degrees, MW/m^2), but the Qe and Qi errors in the example above are written such as they are 20% from the base case. This is because the TGLF object already includes those experimental fluxes because they existed in the *input.gacode* file. However, this way of specifying the error is completely up to the user.
+Now, once TGLF has run and outputs have been read and stored in the ``tglf.results`` dictionary, information about the experiment needs to be provided. Note that the errors (standard deviation) are provided in absolute units (MW/m^2), but the Qe and Qi errors in the example above are written such as they are 20% from the base case. This is because the TGLF object already includes those experimental fluxes because they existed in the *input.gacode* file. However, this way of specifying the error is completely up to the user.
 
 .. code-block:: python
 
@@ -86,7 +87,7 @@ First you must select the objective functions (ofs) you want VITALS to match:
 
 .. code-block:: python
 
-	ofs = ['Qe','Qi'] 		# or ['Qe','Qi','TeFluct','neTe'] for fluctuation quantities
+	ofs = ['Qe','Qi']  # or ['Qe','Qi','TeFluct','neTe'] for fluctuation quantities
 
 Then, the free parameters (design variables, dvs) that VITALS can vary, along with their minimum and maximum variation relative to the base case:
 
@@ -100,8 +101,13 @@ Then, as it the case for all optimization problems in PORTALS, you must create a
 
 .. code-block:: python
 
+	# Option 1: Provide the complete namelist
 	namelist   = IOtools.expandPath( '$PORTALS_PATH/regressions/namelist_examples/vitals_example.namelist' )
 	vitals_fun = VITALSmain.evaluateVITALS( folder, namelist = namelist )
+
+	# Option 2: Use a curated VITALS namelist and only modify some requested values
+	vitals_fun = VITALSmain.evaluateVITALS( folder )
+	vitals_fun.Optim['BOiterations'] = 5
 
 Once the VITALS object has been created, parameters such as the TGLF control inputs can be chosen:
 
