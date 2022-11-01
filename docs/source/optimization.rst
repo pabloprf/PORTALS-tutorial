@@ -21,7 +21,7 @@ Current fusion applications
 Optimize a custom function
 --------------------------
 
-Optimizing any function (mathematical or a simulation) with PORTALS is extremely easy.
+Optimizing any function (mathematical or a simulation) with PORTALS is very easy.
 
 For this tutorial we will need the following modules:
 
@@ -37,7 +37,8 @@ Select the location of the PORTALS namelist (see :ref:`Understanding the PORTALS
    folder    = IOtools.expandPath('$PORTALS_PATH/regressions/scratch/portals_tut/')
    namelist  = IOtools.expandPath('$PORTALS_PATH/regressions/namelist_examples/opt_example.namelist')
 
-Then create your custom optimization object as a child of the parent `STRATEGYtools.FUNmain` class. You only need to modify what operations need to occur inside the `run()` method. In this example, we are using `$x^2$` as our function with a 5% error:
+Then create your custom optimization object as a child of the parent `STRATEGYtools.FUNmain` class. You only need to modify what operations need to occur inside the `run()` (where operations/simulations happen) and `pseudo_single_objective_function()` (to define what is the target to maximize) methods.
+In this example, we are using `x^2` as our function with a 5% evaluation error, to find `x` such that `x^2 = 15`:
 
 .. code-block:: python
 
@@ -45,9 +46,12 @@ Then create your custom optimization object as a child of the parent `STRATEGYto
 
       def __init__(self,folder,namelist=None):
 
-        # Store folder, namelist. Read namelist
+         # Store folder, namelist. Read namelist
          super().__init__(folder,namelist=namelist)
          # ----------------------------------------
+
+         # Define dimension
+         self.name_objectives = ['Zval_match']
 
       def run(self,paramsfile,resultsfile):
 
@@ -55,23 +59,39 @@ Then create your custom optimization object as a child of the parent `STRATEGYto
          FolderEvaluation,numEval,dictDVs,dictOFs,dictCVs = self.read(paramsfile,resultsfile)
 
          # Operations -------------------------------------------------
-         
+
          x = dictDVs['x']['value']
          
          z = x**2
 
          dictOFs['z']['value'] = z
          dictOFs['z']['error'] = z * 5E-2
+
+         # Target value
+
+         dictOFs['zval']['value'] = 15.0
+         dictOFs['zval']['error'] =  0.0
+
          # -------------------------------------------------------------
 
          # Write stuff
          self.write(dictOFs,resultsfile)
 
+      def pseudo_single_objective_function(self,Y):
+
+         ofs_ordered_names = np.array(self.Optim['ofs'])
+
+         of    = Y[:,ofs_ordered_names == 'z'].unsqueeze(1)
+         cal = Y[:,ofs_ordered_names == 'zval'].unsqueeze(1)
+         res = -(of-cal).abs().mean(axis=1).unsqueeze(1)
+
+         return of,cal,res
+
 Then, create an object from the previously defined class:
 
 .. code-block:: python
 
-   opt_fun1D  = opt_class( folder, namelist = namelist )
+   opt_fun1D  = opt_class(folder)
 
 .. note::
 
@@ -94,39 +114,15 @@ Once finished, we can plot the results easily with:
 Understanding the PORTALS namelist
 ----------------------------------
 
-The PORTALS namelist contains many parameters (as it is currently under development and improvement). An example can be found in '$PORTALS_PATH/regressions/data/namelist_examples/opt_example.namelist'.
+Checkout file `PORTALS/config/main.namelist`, which has comprehensive comments.
 
-A generic user would only need to care about the following parameters.
-
-- Problem selection: The objective functions names (OPT_ofs) and values (OPT_calofs). The design variables names (OPT_dvs) , minimum (OPT_dvs_min), maximum (OPT_dvs_max) and baseline (OPT_BaselineDV) values.
-
-.. code-block:: console
-
-   OPT_ofs        = [z]    
-   OPT_calofs     = [8.0]  
-
-   OPT_dvs        = [x]
-   OPT_dvs_min    = [-1]   
-   OPT_BaselineDV = [2.0] 
-   OPT_dvs_max    = [4.0]
-
-- Main optimization parameters: Number of initial training points (OPT_initialPoints), number of optimization iterations (OPT_BOiterations), number of function evaluations in parallel (OPT_parallelCalls)
-
-.. code-block:: console
-
-   OPT_initialPoints   = 4
-   OPT_BOiterations    = 3                   
-   OPT_parallelCalls   = 1 
-
-.. note::
-   
-   The namelist contains many other variables that control the surrogate model, correction techniques and many other aspects of the framework, but that requires being an advanced user.
+*Under development*
 
 Understanding the PORTALS outputs
 ---------------------------------
 
 As a result of the last step of :ref:`Optimize a custom function`, optimization results are plotted...
 
-*Nothing here yet*
+*Under development*
 
 

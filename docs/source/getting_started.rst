@@ -59,7 +59,8 @@ For example, if TGLF is set up to run in the engaging machine, this means that, 
 
     "preferences": {
         "tglf":             "engaging",
-        "verbose_level":    "1"
+        "verbose_level":    "1",
+        "dpi_notebook":     "100"
     },
     "engaging": {
         "machine":          "eofe7.mit.edu", 
@@ -75,6 +76,8 @@ For example, if TGLF is set up to run in the engaging machine, this means that, 
 ``preferences`` in *config_user.json* also includes a ``verbose_level`` flag, which indicates the amount of messages that are printed to the terminal when running PORTALS.
 For debugging purposes, it is recommended a maximum verbose level of 5.
 For production runs, a minimum verbose level of 1 is recommended so that you only get important messages.
+``preferences`` also allows a ``dpi_notebook`` value (in percent from standard), which should be adjusted for each user's screen configuration.
+
 
 Notes on simulation codes
 -------------------------
