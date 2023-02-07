@@ -35,11 +35,11 @@ You can use ``pip3`` to install (note that PORTALS requires **python3**) all the
 
 .. note::
    
-   If you wish to install all capabilities (including omfit compatibility), it is recommended that ``pip3`` is run as follows, even though you may need to update your fortran compiler.
+   If you wish to install all capabilities (including omfit & freegs compatibility), it is recommended that ``pip3`` is run as follows, even though you may need to update your fortran compiler.
 
    .. code-block:: console
 
-      pip3 install -e $PORTALS_PATH[omfit]
+      pip3 install -e $PORTALS_PATH[omfit,freegs]
 
 User configuration
 ------------------
