@@ -19,7 +19,7 @@ You can use ``pip3`` to install (note that PORTALS requires **python3**) all the
 
 .. code-block:: console
 
-   pip3 install -e $PORTALS_PATH
+   pip3 install -e $PORTALS_PATH[pyqt]
 
 .. note::
    
@@ -32,6 +32,10 @@ You can use ``pip3`` to install (note that PORTALS requires **python3**) all the
       pip3 install -e $PORTALS_PATH
 
    Alternatively, you can use ``--user`` as a flag when doing ``pip3`` to install in your user local directory.
+
+.. note::
+   
+   The optional argument ``[pyqt]`` added as default in the intallation command above must only be used if the machine allows for graphic interfaces. If running in a cluster (e.g. engaging), remove that flag
 
 .. note::
    

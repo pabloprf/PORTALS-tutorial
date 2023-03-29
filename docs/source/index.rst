@@ -1,11 +1,10 @@
-PORTALS: a toolbox for optimization tasks in fusion and plasma physics
-======================================================================
+PORTALS: a toolbox for optimization tasks in plasma physics and fusion energy
+=============================================================================
 
-**PORTALS** is a light-weight, command-line, object-oriented Python library for *plasma physics* and *fusion energy* researchers that simplifies optimization tasks.
-Developed and maintained by Pablo Rodriguez-Fernandez, MIT Plasma Science and Fusion Center, 2018-2021.
+**PORTALS** is a light-weight, command-line, object-oriented Python library for *plasma physics* and *fusion energy* researchers that simplifies optimization tasks and model execution.
+Developed and maintained by Pablo Rodriguez-Fernandez, MIT Plasma Science and Fusion Center, 2018-2023.
 
 Github repo: https://github.com/pabloprf/PORTALS  
-
 Users Agreement: :ref:`License and Contributions`
 
 .. note::
@@ -23,14 +22,18 @@ Users Agreement: :ref:`License and Contributions`
 Overview
 --------
 
-PORTALS was developed as a by-product of transport and optimization research projects at the MIT Plasma Science and Fusion Center in 2018, and has been improved since.
+PORTALS was developed as a by-product of transport and optimization research projects at the MIT Plasma Science and Fusion Center that started in 2018, and has been improved since.
 Its original acronym was *Performance Optimization of Reactors via Training of Active Learning Surrogates*, but now PORTALS stands on its own, as a *portal* or *gateway* to various plasma physics activities.
 
 The basis of PORTALS is to handle the standalone execution of codes and interpretation of results in object-oriented python scripts (see :ref:`Standalone Capabilities` for more details).
-These python objects can directly be called in a custom Bayesian Optimization framework (see :ref:`Optimization` for more details).
+These python objects can directly be called in a custom surrogate-based optimization framework (see :ref:`Optimization` for more details).
 
-Documentation Contents
---------
+If you use PORTALS for your research, please consider citing the following paper in your upcoming publications:
+
+P. Rodriguez-Fernandez, N.T. Howard and J. Candy, `Nonlinear gyrokinetic predictions of SPARC burning plasma profiles enabled by surrogate modeling <https://iopscience.iop.org/article/10.1088/1741-4326/ac64b2>`_, Nucl. Fusion 62, 076036 (2022).
+
+PORTALS documentation contents
+------------------------------
 
 .. toctree::
    :maxdepth: 1
