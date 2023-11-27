@@ -16,7 +16,8 @@ version = '0.1.0'
 
 # -- General configuration
 
-extensions = ['sphinx.ext.autodoc',
+extensions = ['sphinx_rtd_theme',
+              'sphinx.ext.autodoc',
               'sphinx.ext.autosummary',
               'sphinx.ext.autosectionlabel',
               'sphinx.ext.todo',
@@ -43,6 +44,8 @@ pygments_style = 'sphinx'
 # -- Options for HTML output
 
 on_rtd = os.environ.get('READTHEDOCS',None) == 'True'
+
+on_rtd = True
 
 if not on_rtd: # only import and set the theme if we're buiding docs locally
     import sphinx_rtd_theme
