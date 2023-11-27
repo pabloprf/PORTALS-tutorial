@@ -44,7 +44,7 @@ pygments_style = 'sphinx'
 
 on_rtd = os.environ.get('READTHEDOCS',None) == 'True'
 
-on_rtd = True
+on_rtd = False
 
 if not on_rtd: # only import and set the theme if we're buiding docs locally
     import sphinx_rtd_theme
