@@ -1,9 +1,15 @@
 VITALS
 ======
 
-The VITALS (Validation via Iterative Training of Active Learning Surrogates) method, described in `P. Rodriguez-Fernandez et al., Fusion Technol. 74:1-2, 65-76 (2018) <https://www.tandfonline.com/doi/full/10.1080/15361055.2017.1396166>`_ consists of using Bayesian Optimization techniques to help in the multi-channel validation of transport models.
+The VITALS (Validation via Iterative Training of Active Learning Surrogates) method, described in `P. Rodriguez-Fernandez et al., Fusion Technol. 74:1-2, 65-76 (2018) <https://www.tandfonline.com/doi/full/10.1080/15361055.2017.1396166>`_ consists of using surrogate-based optimization techniques to help in the multi-channel validation of transport models.
 
 VITALS has been implemented to work with the TGLF model, and can be run using the PORTALS repo, following a few steps described below.
+
+Once setup has been successful, the following regression test should run smoothly:
+
+.. code-block:: console
+
+   python3 $PORTALS_PATH/regressions/VITALS_workflow.py
 
 
 1. Preparation of TGLF class
@@ -153,7 +159,7 @@ We can plot the VITALS results easily with:
 In the previous command, ``full=True`` means that VITALS will now run TGLF again for the base case (Evaluation #0) and the best case (best in terms of the lowest mean residual), then it will plot them together as a TGLF Notebook.
 All information of the optimization process is also included in tabs in the notebook.
 
-.. figure:: figs/VITALSnotebook1.png
+.. figure:: ./figs/VITALSnotebook1.png
 	:align: center
 	:alt: VITALS_Notebook
 	:figclass: align-center

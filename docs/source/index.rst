@@ -26,7 +26,7 @@ PORTALS was developed as a by-product of transport and optimization research pro
 Its original acronym was *Performance Optimization of Reactors via Training of Active Learning Surrogates*, but now PORTALS stands on its own, as a *portal* or *gateway* to various plasma physics activities.
 
 The basis of PORTALS is to handle the standalone execution of codes and interpretation of results in object-oriented python scripts (see :ref:`Standalone Capabilities` for more details).
-These python objects can directly be called in a custom surrogate-based optimization framework (see :ref:`Optimization` for more details).
+These python objects can directly be called in a custom surrogate-based optimization framework (see :ref:`Optimization Capabilities` for more details).
 
 If you use PORTALS for your research, please consider citing the following paper in your upcoming publications:
 
@@ -39,7 +39,5 @@ PORTALS documentation contents
    :maxdepth: 1
 
    installation
-   lincese
-   standalone
-   optimization
-   api
+   capabilities/standalone
+   capabilities/optimization

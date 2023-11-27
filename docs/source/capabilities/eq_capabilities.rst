@@ -13,7 +13,7 @@ To open and plot a g-eqdsk file:
 
 It will plot results in a notebook-like plot with different tabs:
 
-.. figure:: figs/GSnotebook.png
+.. figure:: ./figs/GSnotebook.png
 	:align: center
 	:alt: TGLF_Notebook
 	:figclass: align-center

@@ -65,7 +65,7 @@ Once the run has finished, results can be plotted:
 
 As a result, a TRANSP notebook with different tabs will be opened with all relevant output quantities:
 
-.. figure:: figs/TRANSPnotebook.png
+.. figure:: ./figs/TRANSPnotebook.png
 	:align: center
 	:alt: TRANSP_Notebook
 	:figclass: align-center
@@ -73,7 +73,7 @@ As a result, a TRANSP notebook with different tabs will be opened with all relev
 Read results from external TRANSP run
 -------------------------------------
 
-If TRANSP has already been run and the .CDF results file already exists (cdf_file), the workflow in the previous section is not needed and one can simply read and plot the results:
+If TRANSP has already been run and the .CDF results file already exists (``cdf_file``), the workflow in the previous section is not needed and one can simply read and plot the results:
 
 .. code-block:: python
 
@@ -83,26 +83,28 @@ If TRANSP has already been run and the .CDF results file already exists (cdf_fil
 
 	transp_results.plotRun()
 
-`transp_results` is a class that parses important TRANSP outputs.
-Example: To plot the electron temperature (in keV) as a function of the square root of the normalized toroidal flux coordinate at the top of the last simulated sawtooth (or last simulated time if no sawtooth present):
+.. tip::
 
-.. code-block:: python
+	`transp_results` is a class that parses important TRANSP outputs.
+	Example: To plot the electron temperature (in keV) as a function of the square root of the normalized toroidal flux coordinate at the top of the last simulated sawtooth (or last simulated time if no sawtooth present):
 
-	import matplotlib.pyplot as plt
+	.. code-block:: python
 
-	plt.ion(); fig, ax = plt.subplots()
+		import matplotlib.pyplot as plt
 
-	index_sawtooth = transp_results.ind_saw
-	rho            = transp_results.x[index_sawtooth,:]
-	TeKeV          = transp_results.Te[index_sawtooth,:]
+		plt.ion(); fig, ax = plt.subplots()
 
-	ax.plot(rho,TeKeV)
+		index_sawtooth = transp_results.ind_saw
+		rho            = transp_results.x[index_sawtooth,:]
+		TeKeV          = transp_results.Te[index_sawtooth,:]
 
-To plot all important time and spatial variables (at time `t1` seconds), simply do:
+		ax.plot(rho,TeKeV)
 
-.. code-block:: python
+	To plot all important time and spatial variables (at time ``t1`` seconds), simply do:
 
-	transp_results.plotRun( time = t1 )
+	.. code-block:: python
+
+		transp_results.plotRun( time = t1 )
 
 .. note::
 

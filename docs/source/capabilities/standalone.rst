@@ -1,8 +1,6 @@
 Standalone Capabilities
 =======================
 
-
-
 .. toctree::
 
    tglf_capabilities

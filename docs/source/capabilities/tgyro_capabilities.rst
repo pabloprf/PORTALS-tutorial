@@ -33,7 +33,7 @@ Create a PROFILES class from the input.gacode file:
 
 	profiles = PROFILESmodule.PROFILES_GACODE(gacode_file)
 
-.. note::
+.. tip::
 
 	Note that the profiles class can be plotted, for convenience.
 
@@ -41,7 +41,7 @@ Create a PROFILES class from the input.gacode file:
 
 		profiles.plot()
 
-	.. figure:: figs/PROFILESnotebook.png
+	.. figure:: ./figs/PROFILESnotebook.png
 		:align: center
 		:alt: PROFILES_Notebook
 		:figclass: align-center
@@ -57,7 +57,7 @@ Now it is time to set the TGYRO settings, such as the radial range (vectorRange[
 
 .. code-block:: python
 
-    vectorRange     = [0.3,0.8,4]
+    rhos            = [0.3,0.5,0.7,0.9]
     solver          = { 'step_jac':    1E-2,
                         'step_max':    1E-2,
                         'res_method':     2,
@@ -75,7 +75,7 @@ Now TGYRO can be run:
 
     tgyro.run( subFolderTGYRO        = 'run1/',      
                iterations            = iterations,
-               vectorRange           = vectorRange,
+               special_radii         = rhos,
                PredictionSet         = PredictionSet,
                TGLFsettings          = TGLFsettings,
                TGYRO_solver_options  = solver,
@@ -95,7 +95,7 @@ And plot:
 
 As a result, a TGYRO notebook with different tabs will be opened with all relevant output quantities:
 
-.. figure:: figs/TGYROnotebook.png
+.. figure:: ./figs/TGYROnotebook.png
 	:align: center
 	:alt: TGYRO_Notebook
 	:figclass: align-center
