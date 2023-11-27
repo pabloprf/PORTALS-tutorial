@@ -1,8 +1,7 @@
 Installation
 ============
 
-To use PORTALS, first request access to Pablo Rodriguez-Fernandez (pablorf@mit.edu), indicating the intended use.
-Then clone the github repository:
+Clone the github repository:
 
 .. code-block:: console
 

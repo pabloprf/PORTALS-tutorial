@@ -38,7 +38,7 @@ PORTALS documentation contents
 .. toctree::
    :maxdepth: 1
 
-   getting_started
+   installation
    lincese
    standalone
    optimization
