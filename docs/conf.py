@@ -16,8 +16,7 @@ version = '0.1.0'
 
 # -- General configuration
 
-extensions = ['sphinx_rtd_theme',
-              'sphinx.ext.autodoc',
+extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.autosummary',
               'sphinx.ext.autosectionlabel',
               'sphinx.ext.todo',
