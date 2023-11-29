@@ -1,6 +1,10 @@
 Installation
 ============
 
+.. important::
+   PORTALS requires python3.9, a requirement driven by the optimization capabilities in PyTorch.
+   If you do not have python3.9 but still want to use PORTALS' non-optimization features, you may try to install each python package individually (see ``setup.py`` file) and skip ``botorch``. However, this option is not supported and there is no assurance the code will work
+
 Clone the github repository:
 
 .. code-block:: console
@@ -14,9 +18,9 @@ Source the configuration file (in *.bashrc* file):
    export PORTALS_PATH=/path/to/portals/
    source $PORTALS_PATH/config/portals.bashrc
    
-.. important::
+.. note::
    
-   It may be useful, at this point, to create a virtual environment to install required PORTALS dependencies:
+   It may be useful, at this point, to create a virtual environment to install required PORTALS dependencies. For examples using python's ``venv`` package:
 
    .. code-block:: console
 
@@ -26,7 +30,7 @@ Source the configuration file (in *.bashrc* file):
 
    Alternatively, you can use ``--user`` as a flag when doing ``pip3`` in the next step to install in your user local directory.
 
-Use ``pip3`` to install all the required PORTALS dependencies:
+Use ``pip3`` to install all the required PORTALS requirements:
 
 .. code-block:: console
 
