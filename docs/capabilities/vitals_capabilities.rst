@@ -3,13 +3,13 @@ VITALS
 
 The VITALS (Validation via Iterative Training of Active Learning Surrogates) method, described in `P. Rodriguez-Fernandez et al., Fusion Technol. 74:1-2, 65-76 (2018) <https://www.tandfonline.com/doi/full/10.1080/15361055.2017.1396166>`_ consists of using surrogate-based optimization techniques to help in the multi-channel validation of transport models.
 
-VITALS has been implemented to work with the TGLF model, and can be run using the PORTALS repo, following a few steps described below.
+VITALS has been implemented to work with the TGLF model, and can be run using the MITIM repo, following a few steps described below.
 
 Once setup has been successful, the following regression test should run smoothly:
 
 .. code-block:: console
 
-   python3 $PORTALS_PATH/regressions/VITALS_workflow.py
+   python3 $MITIM_PATH/tests/VITALS_workflow.py
 
 
 1. Preparation of TGLF class
@@ -21,21 +21,21 @@ For this tutorial we will need the following modules and the folder to run VITAL
 
 	import numpy as np
 
-	from portals.gacode_tools     import TGLFmodule
-	from portals.misc_tools       import IOtools
-	from portals_opt.vitals_tools import VITALSmain
-	from portals_opt.opt_tools    import STRATEGYtools
+	from mitim_tools.gacode_tools     import TGLFtools
+	from mitim_tools.misc_tools       import IOtools
+	from mitim_modules.vitals import VITALSmain
+	from mitim_tools.opt_tools    import STRATEGYtools
 
-	folder = IOtools.expandPath( '$PORTALS_PATH/regressions/scratch/vitals_tut/' )
+	folder = IOtools.expandPath( '$MITIM_PATH/tests/scratch/vitals_tut/' )
 
 As a starting point of VITALS, you need to prepare and run TGLF for the base case (please follow the :ref:`TGLF` tutorial for more details):
 
 .. code-block:: python
 
-	inputgacode_file = IOtools.expandPath( '$PORTALS_PATH/regressions/data/input.gacode' )
+	inputgacode_file = IOtools.expandPath( '$MITIM_PATH/tests/data/input.gacode' )
 	rho              = 0.5
 	
-	tglf = TGLFmodule.TGLF( rhos = [ rho ] )
+	tglf = TGLFtools.TGLF( rhos = [ rho ] )
 	cdf = tglf.prep( folder, inputgacode = inputgacode_file)
 	tglf.run( subFolderTGLF = 'run_base/', TGLFsettings = 5)
 	tglf.read( label = 'run_base' )
@@ -49,7 +49,7 @@ As a starting point of VITALS, you need to prepare and run TGLF for the base cas
 
 	    tglf.read( label = 'run_base', d_perp_cm = { rho: 1.9 } )
 
-	Currently, the synhetic diagnostic to produce fluctuation levels out of amplitude spectra is handled by the ``convolution_CECE`` function in ``portals/gacode_tools/GACODEdefaults.py``. To understand the meaning of the ``d_perp_cm`` keyword argument provided above, please check out the code.
+	Currently, the synhetic diagnostic to produce fluctuation levels out of amplitude spectra is handled by the ``convolution_CECE`` function in ``mitim/gacode_tools/GACODEdefaults.py``. To understand the meaning of the ``d_perp_cm`` keyword argument provided above, please check out the code.
 
 Now, once TGLF has run and outputs have been read and stored in the ``tglf.results`` dictionary, information about the experiment needs to be provided. Note that the errors (standard deviation) are provided in absolute units (MW/m^2), but the Qe and Qi errors in the example above are written such as they are 20% from the base case. This is because the TGLF object already includes those experimental fluxes because they existed in the *input.gacode* file. However, this way of specifying the error is completely up to the user.
 
@@ -103,12 +103,12 @@ Then, the free parameters (design variables, dvs) that VITALS can vary, along wi
 	dvs_min = [     0.7,      0.7,      0.7,    0.7]
 	dvs_max	= [     1.3,      1.3,      1.3,    1.3]
 
-Then, as it the case for all optimization problems in PORTALS, you must create a function class by selecting the namelist file to use (see :ref:`Understanding the PORTALS namelist` to understand how to construct the namelist file):
+Then, as it the case for all optimization problems in MITIM, you must create a function class by selecting the namelist file to use (see :ref:`Understanding the MITIM namelist` to understand how to construct the namelist file):
 
 .. code-block:: python
 
 	# Option 1: Provide the complete namelist
-	namelist   = IOtools.expandPath( '$PORTALS_PATH/regressions/namelist_examples/vitals_example.namelist' )
+	namelist   = IOtools.expandPath( '$MITIM_PATH/tests/namelist_examples/vitals_example.namelist' )
 	vitals_fun = VITALSmain.evaluateVITALS( folder, namelist = namelist )
 
 	# Option 2: Use a curated VITALS namelist and only modify some requested values
@@ -136,12 +136,12 @@ We are now ready to prepare the VITALS class. Here we have two options:
 	# Option 2. Pass the tglf pickled file
 	vitals_fun.prep( tglf_file, rho, ofs, dvs, dvs_min, dvs_max, classLoaded = False )
 
-Now we can create and launch the PORTALS optimization process from the beginning (i.e. ``restart = True``):
+Now we can create and launch the MITIM optimization process from the beginning (i.e. ``restart = True``):
 
 .. code-block:: python
 
-	portals_bo = STRATEGYtools.PRF_BO(vitals_fun, restartYN = True )
-	portals_bo.run()
+	mitim_bo = STRATEGYtools.PRF_BO(vitals_fun, restartYN = True )
+	mitim_bo.run()
 
 .. note::
 

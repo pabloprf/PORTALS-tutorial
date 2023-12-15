@@ -1,14 +1,14 @@
 TRANSP
 ===================
 
-**PORTALS** can be used to run TRANSP, interpret results and plot revelant quantities.
+**MITIM** can be used to run TRANSP, interpret results and plot revelant quantities.
 This framework does not provide linceses or support to run TRANSP, therefore, please see :ref:`Installation` for information on how to get TRANSP working and how to configure your setup.
 
 Once setup has been successful, the following regression test should run smoothly:
 
 .. code-block:: console
 
-	python3 $PORTALS_PATH/regressions/TRANSP_workflow.py
+	python3 $MITIM_PATH/tests/TRANSP_workflow.py
 
 
 Run TRANSP
@@ -18,15 +18,15 @@ For this tutorial we will need the following modules:
 
 .. code-block:: python
 
-	from portals.transp_tools import TRANSPtools
-	from portals.misc_tools   import IOtools
+	from mitim_tools.transp_tools import TRANSPtools
+	from mitim_tools.misc_tools   import IOtools
 
 TRANSP runs are very personal and specific to each tokamak and plasma, as diagnostic availability strongly varies and namelist settings are not standarized.
 For this reason, this workflow assumes that a folder exists with all the plasma information (UFILES) and namelist required to run TRANSP:
 
 .. code-block:: python
 
-	folder = IOtools.expandPath('$PORTALS_PATH/regressions/data/FolderTRANSP/')
+	folder = IOtools.expandPath('$MITIM_PATH/tests/data/FolderTRANSP/')
 
 First, one would initialize the TRANSP class with the given folder and the tokamak name:
 
@@ -77,7 +77,7 @@ If TRANSP has already been run and the .CDF results file already exists (``cdf_f
 
 .. code-block:: python
 
-	from portals.transp_tools import CDFtools
+	from mitim_tools.transp_tools import CDFtools
 
 	transp_results = CDFtools.CDFreactor( cdf_file )
 

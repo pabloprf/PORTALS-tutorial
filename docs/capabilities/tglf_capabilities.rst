@@ -1,14 +1,14 @@
 TGLF
 ====
 
-**PORTALS** can be used to run the TGLF model, interpret results, plot revelant quantities and perform scans and transport analyses.
+**MITIM** can be used to run the TGLF model, interpret results, plot revelant quantities and perform scans and transport analyses.
 This framework does not provide linceses or support to run TGLF, therefore, please see :ref:`Installation` for information on how to get TGLF working and how to configure your setup.
 
 Once setup has been successful, the following regression test should run smoothly:
 
 .. code-block:: console
 
-	python3 $PORTALS_PATH/regressions/TGLF_workflow.py
+	python3 $MITIM_PATH/tests/TGLF_workflow.py
 
 Run TGLF from input.gacode
 --------------------------
@@ -17,23 +17,23 @@ For this tutorial we will need the following modules:
 
 .. code-block:: python
 
-	from portals.gacode_tools import TGLFmodule
-	from portals.misc_tools   import IOtools
+	from mitim_tools.gacode_tools import TGLFtools
+	from mitim_tools.misc_tools   import IOtools
 
 Select the location of the input.gacode file to start the simulation from. Note that you can use the ``IOtools.expandPath()`` method to work with relative paths. You should also select the folder where the simulation will be run:
 
 .. code-block:: python
 
-	inputgacode_file = IOtools.expandPath('$PORTALS_PATH/regressions/data/input.gacode')
-	folder           = IOtools.expandPath('$PORTALS_PATH/regressions/scratch/tglf_tut/')
+	inputgacode_file = IOtools.expandPath('$MITIM_PATH/tests/data/input.gacode')
+	folder           = IOtools.expandPath('$MITIM_PATH/tests/scratch/tglf_tut/')
 
 The TGLF class can be initialized by providing the radial location (in square root of normalized toroidal flux, ``rho``) to run. Note that the values are given as a list, and several radial locations can be run at once:
 
 .. code-block:: python
 
-	tglf = TGLFmodule.TGLF(rhos=[0.5, 0.7])
+	tglf = TGLFtools.TGLF(rhos=[0.5, 0.7])
 
-To generate the input files (input.tglf) to TGLF at each radial location, PORTALS needs to run a few commands to correctly map the quantities in the input.gacode file to the ones required by TGLF. This is done automatically with the ``prep()`` command. Note that PORTALS has a *only-run-if-needed* philosophy and if it finds that the input files to TGLF already exist in the working folder, the preparation method will not run any command, unless a ``restart = True`` argument is provided.
+To generate the input files (input.tglf) to TGLF at each radial location, MITIM needs to run a few commands to correctly map the quantities in the input.gacode file to the ones required by TGLF. This is done automatically with the ``prep()`` command. Note that MITIM has a *only-run-if-needed* philosophy and if it finds that the input files to TGLF already exist in the working folder, the preparation method will not run any command, unless a ``restart = True`` argument is provided.
 
 .. code-block:: python
 
@@ -103,8 +103,8 @@ If instead of an input.gacode, you have a TRANSP .CDF file (``cdf_file``) and wa
 
 .. code-block:: python
 
-    cdf_file = IOtools.expandPath('$PORTALS_PATH/regressions/data/12345.CDF')		
-    tglf     = TGLFmodule.TGLF( cdf    = cdf_file,
+    cdf_file = IOtools.expandPath('$MITIM_PATH/tests/data/12345.CDF')		
+    tglf     = TGLFtools.TGLF( cdf    = cdf_file,
                                 rhos   = [0.5,0.7],
                                 time   = 2.5,
                                 avTime = 0.02 )
@@ -133,19 +133,19 @@ If you have a input.tglf file already, you can still use this script to run it. 
 
 .. code-block:: python
 
-	inputgacode_file = IOtools.expandPath('$PORTALS_PATH/regressions/data/input.gacode')
+	inputgacode_file = IOtools.expandPath('$MITIM_PATH/tests/data/input.gacode')
 	
 	inputsTGLF     = {
-		0.5: TGLFmodule.TGLFinput( file = IOtools.expandPath('$PORTALS_PATH/regressions/data/input.tglf') ) 
+		0.5: TGLFtools.TGLFinput( file = IOtools.expandPath('$MITIM_PATH/tests/data/input.tglf') ) 
 		}
 
 Then, when running the ``.prep()`` method you should tell the code to use specific inputs:
 
 .. code-block:: python
 
-	tglf = TGLFmodule.TGLF(rhos=[0.5])
+	tglf = TGLFtools.TGLF(rhos=[0.5])
 
-	folder           = IOtools.expandPath('$PORTALS_PATH/regressions/scratch/tglf_tut/')
+	folder           = IOtools.expandPath('$MITIM_PATH/tests/scratch/tglf_tut/')
 
 	cdf = tglf.prep( folder, 
 	                 inputgacode    = inputgacode_file,
@@ -162,11 +162,11 @@ The rest of the workflow is identical, including ``.run()``, ``.read()`` and ``.
 Read results from external TGLF run
 -----------------------------------
 
-When TGLF has been run in a folder ``folder_tglf_already_run`` outside of the PORTALS framework, one can also use PORTALS to look at the ouput results as follows:
+When TGLF has been run in a folder ``folder_tglf_already_run`` outside of the MITIM framework, one can also use MITIM to look at the ouput results as follows:
 
 .. code-block:: python
 
-    tglf = TGLFmodule.TGLF()
+    tglf = TGLFtools.TGLF()
 
     tglf.read( folder            = folder_tglf_already_run,
                input_profilesLoc = inputgacode_file,

@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information
 
-project = 'PORTALS'
+project = 'MITIM'
 copyright = '2018, Pablo RF'
 author = 'Pablo Rodriguez-Fernandez'
 
