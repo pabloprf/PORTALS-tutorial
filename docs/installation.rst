@@ -40,6 +40,8 @@ Use ``pip3`` to install all the required PORTALS requirements:
    
    The optional argument ``[pyqt]`` added in the intallation command above must only be used if the machine allows for graphic interfaces. If running in a computing cluster, remove that flag.
 
+   If you are using ZSH you may have problems with the square braquets, in such a case you can do ``pip3 install -e $PORTALS_PATH\[pyqt\]``
+
 .. note::
    
    If you wish to install all capabilities (including compatibility with the `OMFIT <https://omfit.io/>`_  and `FREEGS <https://github.com/freegs-plasma/freegs>`_ codes), it is recommended that ``pip3`` is run as follows:
