@@ -10,6 +10,10 @@ Once setup has been successful, the following regression test should run smoothl
 
 	python3 $MITIM_PATH/tests/TGYRO_workflow.py
 
+.. contents:: Contents
+    :local:
+    :depth: 1
+
 Run TGYRO from an input.gacode file
 -----------------------------------
 
@@ -53,7 +57,7 @@ Now the TGYRO class can be created:
 	tgyro = TGYROtools.TGYRO()
 	tgyro.prep(folder,profilesclass_custom=profiles)
 
-Now it is time to set the TGYRO settings, such as the radial range (vectorRange[0] to vectorRange[1]), number of points to simulate (vectorRange[2]), the solver parameters, physics and TGLF options:
+Now it is time to set the TGYRO settings, such as the radial range (``vectorRange[0]`` to ``vectorRange[1]``), number of points to simulate (vectorRange[2]), the solver parameters, physics and TGLF options:
 
 .. code-block:: python
 
@@ -98,8 +102,10 @@ As a result, a TGYRO notebook with different tabs will be opened with all releva
 .. figure:: ./figs/TGYROnotebook.png
 	:align: center
 	:alt: TGYRO_Notebook
-	:figclass: align-center
 
+.. raw:: html
+
+   <br><br>
 
 Read TGYRO results that were run externally
 ----------------------------------------------
@@ -122,3 +128,16 @@ Plot results:
 .. code-block:: python
 
 	tgyro_out.plot()
+
+
+TGYRO aliases
+------------
+
+MITIM provides a few useful aliases, including for the TGYRO tools:
+
+- To plot results that exist in a folder ``run1/``:
+    
+    .. code-block:: bash
+        
+        mitim_plot_tgyro run1/
+

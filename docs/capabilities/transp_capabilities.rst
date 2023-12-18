@@ -10,6 +10,9 @@ Once setup has been successful, the following regression test should run smoothl
 
 	python3 $MITIM_PATH/tests/TRANSP_workflow.py
 
+.. contents:: Contents
+    :local:
+    :depth: 1
 
 Run TRANSP
 ----------
@@ -68,7 +71,10 @@ As a result, a TRANSP notebook with different tabs will be opened with all relev
 .. figure:: ./figs/TRANSPnotebook.png
 	:align: center
 	:alt: TRANSP_Notebook
-	:figclass: align-center
+
+.. raw:: html
+
+   <br><br>
 
 Read results from external TRANSP run
 -------------------------------------
@@ -85,8 +91,8 @@ If TRANSP has already been run and the .CDF results file already exists (``cdf_f
 
 .. tip::
 
-	`transp_results` is a class that parses important TRANSP outputs.
-	Example: To plot the electron temperature (in keV) as a function of the square root of the normalized toroidal flux coordinate at the top of the last simulated sawtooth (or last simulated time if no sawtooth present):
+	``transp_results`` is a class that parses important TRANSP outputs.
+	For example, to plot the electron temperature (in keV) as a function of the square root of the normalized toroidal flux coordinate at the top of the last simulated sawtooth (or last simulated time if no sawtooth present):
 
 	.. code-block:: python
 
@@ -108,5 +114,17 @@ If TRANSP has already been run and the .CDF results file already exists (``cdf_f
 
 .. note::
 
-	The contents of the TRANSP class `CDFreactor` can be found in `transp_tools.CDFtools.py` if one wants to understand what post-processing is applied to TRANSP outputs and the units of the variables.
+	The contents of the TRANSP class ``CDFreactor`` can be found in ``transp_tools.CDFtools.py`` if one wants to understand what post-processing is applied to TRANSP outputs and the units of the variables.
+
+TRANSP aliases
+------------
+
+MITIM provides a few useful aliases, including for the TRANSP tools:
+
+- To read TRANSP results in CDF files (which stores the results in the ``cdfs`` list. First run can be plotted with ``cdfs[0].plotRun``):
+    
+    .. code-block:: bash
+        
+        mitim_read_transp 12345A01.CDF 12345A02.CDF
+
 
