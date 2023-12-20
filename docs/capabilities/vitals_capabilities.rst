@@ -11,6 +11,9 @@ Once setup has been successful, the following regression test should run smoothl
 
    python3 $MITIM_PATH/tests/VITALS_workflow.py
 
+.. contents:: Contents
+    :local:
+    :depth: 2
 
 1. Preparation of TGLF class
 ----------------------------
@@ -21,9 +24,9 @@ For this tutorial we will need the following modules and the folder to run VITAL
 
 	import numpy as np
 
-	from mitim_tools.gacode_tools     import TGLFtools
-	from mitim_tools.misc_tools       import IOtools
-	from mitim_modules.vitals import VITALSmain
+	from mitim_tools.gacode_tools import TGLFtools
+	from mitim_tools.misc_tools   import IOtools
+	from mitim_modules.vitals     import VITALSmain
 	from mitim_tools.opt_tools    import STRATEGYtools
 
 	folder = IOtools.expandPath( '$MITIM_PATH/tests/scratch/vitals_tut/' )
@@ -89,13 +92,13 @@ At this point, the TGLF class is ready to go into VITALS. One can give the ``tgl
 2. VITALS Run 
 -------------
 
-First you must select the objective functions (ofs) you want VITALS to match:
+First you must select the objective functions (``ofs``) you want VITALS to match:
 
 .. code-block:: python
 
 	ofs = ['Qe','Qi']  # or ['Qe','Qi','TeFluct','neTe'] for fluctuation quantities
 
-Then, the free parameters (design variables, dvs) that VITALS can vary, along with their minimum and maximum variation relative to the base case:
+Then, the free parameters (design variables, ``dvs``) that VITALS can vary, along with their minimum and maximum variation relative to the base case:
 
 .. code-block:: python
 
@@ -107,9 +110,8 @@ Then, as it the case for all optimization problems in MITIM, you must create a f
 
 .. code-block:: python
 
-	# Option 1: Provide the complete namelist
-	namelist   = IOtools.expandPath( '$MITIM_PATH/tests/namelist_examples/vitals_example.namelist' )
-	vitals_fun = VITALSmain.evaluateVITALS( folder, namelist = namelist )
+	# Option 1: Provide the complete namelist yourself
+	vitals_fun = VITALSmain.evaluateVITALS( folder, namelist = path_to_namelist )
 
 	# Option 2: Use a curated VITALS namelist and only modify some requested values
 	vitals_fun = VITALSmain.evaluateVITALS( folder )

@@ -1,1 +1,0 @@
-`Full Documentation <https://mitim-fusion.readthedocs.io>`_

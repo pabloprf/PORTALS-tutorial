@@ -44,4 +44,4 @@ significantly boosting the efficiency and effectiveness of their studies (see :r
    faq
 
 .. note:: 
-   Language enhancements provided by the assistance of OpenAI's ChatGPT-4.
+   Language enhancements and code refinements provided by the assistance of OpenAI's ChatGPT-4.

@@ -1,5 +1,5 @@
 TGYRO
-==================
+=====
 
 **MITIM** can be used to run the TGYRO transport solver, interpret results and plot revelant quantities.
 This framework does not provide linceses or support to run TGYRO, therefore, please see :ref:`Installation` for information on how to get TGYRO working and how to configure your setup.
@@ -131,7 +131,7 @@ Plot results:
 
 
 TGYRO aliases
-------------
+-------------
 
 MITIM provides a few useful aliases, including for the TGYRO tools:
 

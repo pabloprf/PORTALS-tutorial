@@ -32,7 +32,7 @@ Source the configuration file (in *.bashrc* file):
 
    .. code-block:: console
 
-      python3 -m venv mitim-env
+      python3.9 -m venv mitim-env
       source mitim-env/bin/activate
       pip3 install pip --upgrade
 
@@ -71,28 +71,26 @@ In ``$MITIM_PATH/config/``, there is a ``config_user_example.json`` with specifi
 ``preferences`` in ``config_user.json`` also includes a ``verbose_level`` flag, which indicates the amount of messages that are printed to the terminal when running MITIM.
 For debugging purposes, it is recommended a maximum verbose level of ``5``.
 For production runs, a minimum verbose level of 1 is recommended so that you only get important messages.
-
 ``preferences`` also allows a ``dpi_notebook`` value (in percent from standard), which should be adjusted for each user's screen configuration.
 
-.. hint::
-   For example, if TGLF is set up to run in the MIT *Engaging* machine, this means that, every time in the MITIM workflow when TGLF needs to run, it will access the MIT *Engaging* machine to do so, and therefore you must specify how to access the engaging machine:
+For example, if TGLF is set up to run in the MIT *eofe7* machine, this means that, every time in the MITIM workflow when TGLF needs to run, it will access the MIT *eofe7* machine to do so, and therefore you must specify how to access the engaging machine:
 
-   .. code-block:: console
+.. code-block:: console
 
-       "preferences": {
-           "tglf":             "engaging",
-           "verbose_level":    "1",
-           "dpi_notebook":     "100"
-       },
-       "engaging": {
-           "machine":          "eofe7.mit.edu", 
-           "username":         "pablorf",
-           "partition":        "sched_mit_psfc",
-           "identity":         "~/.ssh/id_rsa",
-           "scratch":          "/nobackup1/pablorf/scratch/"
-           }
+      "preferences": {
+         "tglf":             "engaging",
+         "verbose_level":    "5",
+         "dpi_notebook":     "80"
+      },
+      "engaging": {
+         "machine":          "eofe7.mit.edu", 
+         "username":         "pablorf",
+         "partition":        "sched_mit_psfc",
+         "identity":         "~/.ssh/id_rsa",
+         "scratch":          "/nobackup1/pablorf/scratch/"
+         }
 
-   If you select to run a code in a given machine, please make sure you have ssh rights to that machine with the login instructions specified, unless you are running it locally. MITIM will attempt to secure-copy and access that machine through a standard SSH connection and it must therefore be set-up prior to launching MITIM jobs. Make sure that you can ssh with ``ssh username@machine``, and it is recommended that no password is required for the SSH keys, but it is up to the user. Otherwise MITIM will ask for the password very often.
+If you select to run a code in a given machine, please make sure you have ssh rights to that machine with the login instructions specified, unless you are running it locally. MITIM will attempt to secure-copy and access that machine through a standard SSH connection and it must therefore be set-up prior to launching MITIM jobs. Make sure that you can ssh with ``ssh username@machine``, and it is recommended that no password is required for the SSH keys, but it is up to the user. Otherwise MITIM will ask for the password very often.
 
 .. attention::
 

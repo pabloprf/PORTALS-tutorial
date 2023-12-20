@@ -1,5 +1,5 @@
 TRANSP
-===================
+======
 
 **MITIM** can be used to run TRANSP, interpret results and plot revelant quantities.
 This framework does not provide linceses or support to run TRANSP, therefore, please see :ref:`Installation` for information on how to get TRANSP working and how to configure your setup.
@@ -21,6 +21,7 @@ For this tutorial we will need the following modules:
 
 .. code-block:: python
 
+	import os
 	from mitim_tools.transp_tools import TRANSPtools
 	from mitim_tools.misc_tools   import IOtools
 
@@ -29,7 +30,10 @@ For this reason, this workflow assumes that a folder exists with all the plasma 
 
 .. code-block:: python
 
-	folder = IOtools.expandPath('$MITIM_PATH/tests/data/FolderTRANSP/')
+	folder_original = IOtools.expandPath('$MITIM_PATH/tests/data/FolderTRANSP/')
+	folder 			= IOtools.expandPath("$MITIM_PATH/tests/scratch/transp_tut/")
+	os.system(f'rm -r {folder}')
+	os.system(f'cp -r {folder_original} {folder}')
 
 First, one would initialize the TRANSP class with the given folder and the tokamak name:
 
@@ -42,8 +46,8 @@ Then, select a shotnumber and run name, such that the TRANSP simulation will hav
 
 .. code-block:: python
 
-	shotnumber  = '88664'
-	runname     = 'S01'
+	shotnumber  = '12345'
+	runname     = 'X01'
 	mpisettings = { 'trmpi': 1, 'toricmpi': 64, 'ptrmpi': 1 }
 
 	transp.defineRunParameters( shotnumber+runname, shotnumber, mpisettings = mpisettings )
@@ -117,7 +121,7 @@ If TRANSP has already been run and the .CDF results file already exists (``cdf_f
 	The contents of the TRANSP class ``CDFreactor`` can be found in ``transp_tools.CDFtools.py`` if one wants to understand what post-processing is applied to TRANSP outputs and the units of the variables.
 
 TRANSP aliases
-------------
+--------------
 
 MITIM provides a few useful aliases, including for the TRANSP tools:
 
@@ -127,4 +131,16 @@ MITIM provides a few useful aliases, including for the TRANSP tools:
         
         mitim_read_transp 12345A01.CDF 12345A02.CDF
 
+- To interact with the TRANSP globus grid:
+
+    .. code-block:: bash
+        
+		# To check status of runs under username pablorf
+		mitim_trcheck pablorf
+
+		# To remove from the grid CMOD run numbers 88664P01, 88664P03 from user pablorf
+		mitim_trclean 88664P CMOD --numbers 1,3
+
+		# To get results file (intermediate or final) from CMOD run 152895P01 from user pablorf
+		mitim_trlook 152895P01 CMOD
 
