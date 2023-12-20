@@ -17,7 +17,7 @@ Clone the github repository:
 
 .. code-block:: console
 
-   git clone git@github.com:pabloprf/MITIM-fusion.git
+   git clone git@github.com:pabloprf/MITIM-dev.git
 
 Source the configuration file (in *.bashrc* file):
 
