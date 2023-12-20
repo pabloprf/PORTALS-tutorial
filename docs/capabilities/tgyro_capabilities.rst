@@ -1,14 +1,18 @@
 TGYRO
-==================
+=====
 
-**PORTALS** can be used to run the TGYRO transport solver, interpret results and plot revelant quantities.
+**MITIM** can be used to run the TGYRO transport solver, interpret results and plot revelant quantities.
 This framework does not provide linceses or support to run TGYRO, therefore, please see :ref:`Installation` for information on how to get TGYRO working and how to configure your setup.
 
 Once setup has been successful, the following regression test should run smoothly:
 
 .. code-block:: console
 
-	python3 $PORTALS_PATH/regressions/TGYRO_workflow.py
+	python3 $MITIM_PATH/tests/TGYRO_workflow.py
+
+.. contents:: Contents
+    :local:
+    :depth: 1
 
 Run TGYRO from an input.gacode file
 -----------------------------------
@@ -17,21 +21,21 @@ For this tutorial we will need the following modules:
 
 .. code-block:: python
 
-	from portals.gacode_tools import TGYROmodule,PROFILESmodule
-	from portals.misc_tools   import IOtools
+	from mitim_tools.gacode_tools import TGYROtools,PROFILEStools
+	from mitim_tools.misc_tools   import IOtools
 
 Select the location of the input.gacode file to start the simulation from. Note that you can use the ``IOtools.expandPath()`` method to work with relative paths. You should also select the folder where the simulation will be run:
 
 .. code-block:: python
 
-	gacode_file = IOtools.expandPath('$PORTALS_PATH/regressions/data/input.gacode' )
-	folder      = IOtools.expandPath('$PORTALS_PATH/regressions/scratch/tgyro_tut/')
+	gacode_file = IOtools.expandPath('$MITIM_PATH/tests/data/input.gacode' )
+	folder      = IOtools.expandPath('$MITIM_PATH/tests/scratch/tgyro_tut/')
 
 Create a PROFILES class from the input.gacode file:
 
 .. code-block:: python
 
-	profiles = PROFILESmodule.PROFILES_GACODE(gacode_file)
+	profiles = PROFILEStools.PROFILES_GACODE(gacode_file)
 
 .. tip::
 
@@ -50,10 +54,10 @@ Now the TGYRO class can be created:
 
 .. code-block:: python
 
-	tgyro = TGYROmodule.TGYRO()
+	tgyro = TGYROtools.TGYRO()
 	tgyro.prep(folder,profilesclass_custom=profiles)
 
-Now it is time to set the TGYRO settings, such as the radial range (vectorRange[0] to vectorRange[1]), number of points to simulate (vectorRange[2]), the solver parameters, physics and TGLF options:
+Now it is time to set the TGYRO settings, such as the radial range (``vectorRange[0]`` to ``vectorRange[1]``), number of points to simulate (vectorRange[2]), the solver parameters, physics and TGLF options:
 
 .. code-block:: python
 
@@ -98,8 +102,10 @@ As a result, a TGYRO notebook with different tabs will be opened with all releva
 .. figure:: ./figs/TGYROnotebook.png
 	:align: center
 	:alt: TGYRO_Notebook
-	:figclass: align-center
 
+.. raw:: html
+
+   <br><br>
 
 Read TGYRO results that were run externally
 ----------------------------------------------
@@ -108,17 +114,30 @@ Create a profiles class with the `input.gacode` file that TGYRO used to run and 
 
 .. code-block:: python
 
-	from portals.gacode_tools import TGYROmodule,PROFILESmodule
-	from portals.misc_tools   import IOtools
+	from mitim_tools.gacode_tools import TGYROtools,PROFILEStools
+	from mitim_tools.misc_tools   import IOtools
 
-	gacode_file = IOtools.expandPath('$PORTALS_PATH/regressions/data/input.gacode')
-	folder      = IOtools.expandPath('$PORTALS_PATH/regressions/scratch/tgyro_tut/run1/')
+	gacode_file = IOtools.expandPath('$MITIM_PATH/tests/data/input.gacode')
+	folder      = IOtools.expandPath('$MITIM_PATH/tests/scratch/tgyro_tut/run1/')
 
-	profiles    = PROFILESmodule.PROFILES_GACODE(gacode_file)
-	tgyro_out   = TGYROmodule.TGYROoutput(folder,profiles=profiles)
+	profiles    = PROFILEStools.PROFILES_GACODE(gacode_file)
+	tgyro_out   = TGYROtools.TGYROoutput(folder,profiles=profiles)
 
 Plot results:
 
 .. code-block:: python
 
 	tgyro_out.plot()
+
+
+TGYRO aliases
+-------------
+
+MITIM provides a few useful aliases, including for the TGYRO tools:
+
+- To plot results that exist in a folder ``run1/``:
+    
+    .. code-block:: bash
+        
+        mitim_plot_tgyro run1/
+

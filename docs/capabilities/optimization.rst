@@ -1,90 +1,85 @@
 Optimization Capabilities
 =========================
 
-**PORTALS** can be used to optimize any custom function (:ref:`Optimize a custom function`) or simulations that have already been developed in the code (:ref:`Current fusion applications`), such as :ref:`VITALS` and :ref:`PRISA`.
-Make sure you follow the :ref:`Installation` tutorial for information on how to get PORTALS working and how to configure your setup.
+**MITIM** can be used to optimize any custom function (:ref:`Optimize a custom function`) or simulations that have already been developed in the code (:ref:`Fusion applications`), such as :ref:`VITALS` and :ref:`PORTALS`.
+Make sure you follow the :ref:`Installation` tutorial for information on how to get MITIM working and how to configure your setup.
 
 Once setup has been successful, the following regression test should run smoothly:
 
 .. code-block:: console
 
-   python3 $PORTALS_PATH/regressions/PORTALS_workflow.py
+   python3 $MITIM_PATH/tests/OPT_workflow.py
 
-Current fusion applications
----------------------------
+.. contents:: Contents
+    :local:
+    :depth: 2
 
-.. toctree::
-
-   vitals_capabilities
-   prisa_capabilities
-   freegsu_capabilities
 
 Optimize a custom function
 --------------------------
 
-Optimizing any function (mathematical or a simulation) with PORTALS is very easy.
+Optimizing any function (mathematical or a simulation) with MITIM is very easy.
 
 For this tutorial we will need the following modules:
 
 .. code-block:: python
 
-   import numpy                   as np
-   from portals.misc_tools        import IOtools
-   from portals_opt.opt_tools     import STRATEGYtools
+   import torch
+   import numpy as np
+   from mitim_tools.misc_tools    import IOtools
+   from mitim_tools.opt_tools     import STRATEGYtools
 
-Select the location of the PORTALS namelist (see :ref:`Understanding the PORTALS namelist` to understand how to construct the namelist file) and the folder to work on:
+Select the location of the MITIM namelist (see :ref:`Understanding the MITIM namelist` to understand how to construct the namelist file) and the folder to work on:
 
 .. code-block:: python
 
-   folder    = IOtools.expandPath('$PORTALS_PATH/regressions/scratch/portals_tut/')
-   namelist  = IOtools.expandPath('$PORTALS_PATH/config/main.namelist')
+   folder    = IOtools.expandPath('$MITIM_PATH/tests/scratch/mitim_tut/')
+   namelist  = IOtools.expandPath('$MITIM_PATH/config/main.namelist')
 
 Then create your custom optimization object as a child of the parent ``STRATEGYtools.FUNmain`` class.
-You only need to modify what operations need to occur inside the ``run()`` (where operations/simulations happen) and ``pseudo_single_objective_function()`` (to define what is the target to maximize) methods.
+You only need to modify what operations need to occur inside the ``run()`` (where operations/simulations happen) and ``scalarized_objective()`` (to define what is the target to maximize) methods.
 In this example, we are using ``x**2`` as our function with a 2% evaluation error, to find ``x`` such that ``x**2=15``:
 
 .. code-block:: python
 
    class opt_class(STRATEGYtools.FUNmain):
-
-      def __init__(self,folder,namelist=None):
-
+      def __init__(self, folder, namelist):
          # Store folder, namelist. Read namelist
-         super().__init__(folder,namelist=namelist)
+         super().__init__(folder, namelist=namelist)
          # ----------------------------------------
 
-         # Define Problem
-         self.name_objectives = ['Zval_match']
+         # Problem description (rest of problem parameters are taken from namelist)
+         self.Optim["dvs"] = ["x"]
+         self.Optim["dvs_min"] = [0.0]
+         self.Optim["dvs_max"] = [20.0]
 
-         self.Optim['ofs']     = ['z','zval']
-         self.Optim['dvs']     = ['x']
-         self.Optim['dvs_min'] = [0.0]
-         self.Optim['dvs_max'] = [20.0]
+         self.Optim["ofs"] = ["z", "zval"]
+         self.name_objectives = ["zval_match"]
 
-      def run(self,paramsfile,resultsfile):
-
+      def run(self, paramsfile, resultsfile):
          # Read stuff
-         FolderEvaluation,numEval,dictDVs,dictOFs,dictCVs = self.read(paramsfile,resultsfile)
+         folderEvaluation, numEval, dictDVs, dictOFs = self.read(paramsfile, resultsfile)
 
          # Operations
-         dictOFs['z']['value'] = dictDVs['x']['value']**2
-         dictOFs['z']['error'] = dictOFs['z']['value'] * 2E-2
+         dictOFs["z"]["value"] = dictDVs["x"]["value"] ** 2
+         dictOFs["z"]["error"] = dictOFs["z"]["value"] * 2e-2
 
-         dictOFs['zval']['value'] = 15.0
-         dictOFs['zval']['error'] =  0.0
+         dictOFs["zval"]["value"] = 15.0
+         dictOFs["zval"]["error"] = 0.0
 
          # Write stuff
-         self.write(dictOFs,resultsfile)
+         self.write(dictOFs, resultsfile)
 
-      def pseudo_single_objective_function(self,Y):
+      def scalarized_objective(self, Y):
+         ofs_ordered_names = np.array(self.Optim["ofs"])
 
-         ofs_ordered_names = np.array(self.Optim['ofs'])
+         of = Y[..., ofs_ordered_names == "z"]
+         cal = Y[..., ofs_ordered_names == "zval"]
 
-         of  = Y[...,ofs_ordered_names == 'z']
-         cal = Y[...,ofs_ordered_names == 'zval']
-         res = -(of-cal).abs().mean(axis=-1,keepdim=True)
+         # Residual is defined as the negative (bc it's maximization) normalized (1/N) norm of radial & channel residuals -> L1
+         res = -1 / of.shape[-1] * torch.norm((of - cal), p=1, dim=-1)
 
-         return of,cal,res
+         return of, cal, res
 
 Then, create an object from the previously defined class:
 
@@ -96,7 +91,7 @@ Then, create an object from the previously defined class:
 
    Note that at this point, you can pass any parameter that you want, just changing the ``__init__()`` method as appropriate.
 
-Now we can create and launch the PORTALS optimization process from the beginning (i.e. ``restart = True``):
+Now we can create and launch the MITIM optimization process from the beginning (i.e. ``restart = True``):
 
 .. code-block:: python
 
@@ -110,18 +105,26 @@ Once finished, we can plot the results easily with:
    opt_fun1D.plot_optimization_results(analysis_level=2)
 
 
-Understanding the PORTALS namelist
-----------------------------------
+Understanding the MITIM namelist
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Checkout file ``$PORTALS_PATH/config/main.namelist``, which has comprehensive comments.
+Checkout file ``$MITIM_PATH/config/main.namelist``, which has comprehensive comments.
 
 *Under development*
 
-Understanding the PORTALS outputs
----------------------------------
+Understanding the MITIM outputs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As a result of the last step of :ref:`Optimize a custom function`, optimization results are plotted...
 
 *Under development*
 
+Fusion applications
+-------------------
 
+.. toctree:: 
+   :maxdepth: 1
+
+   vitals_capabilities
+   portals_capabilities
+   freegsu_capabilities
